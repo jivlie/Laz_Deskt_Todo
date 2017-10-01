@@ -1,0 +1,1462 @@
+object DatModMain: TDatModMain
+  OnCreate = DataModuleCreate
+  OnDestroy = DataModuleDestroy
+  OldCreateOrder = False
+  Height = 617
+  HorizontalOffset = 164
+  VerticalOffset = 172
+  Width = 546
+  object SQLite3Con: TSQLite3Connection
+    Connected = False
+    LoginPrompt = False
+    BeforeConnect = SQLite3ConBeforeConnect
+    DatabaseName = '/home/corbij/Portable/Documenten/DataBases/Sqlite/ToDo/dbTodo.db'
+    KeepConnection = False
+    Transaction = SQLTransact
+    LogEvents = []
+    Options = []
+    left = 90
+    top = 32
+  end
+  object SQLTransact: TSQLTransaction
+    Active = False
+    Action = caCommitRetaining
+    Database = SQLite3Con
+    Options = []
+    left = 88
+    top = 96
+  end
+  object SQLQrySleutels: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = '_id'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'LtsteWrde'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'NmTabel'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end>
+    AfterPost = SQLQrySleutelsAfterPost
+    Database = SQLite3Con
+    Transaction = SQLTransact
+    SQL.Strings = (
+      'Select'
+      '_id,'
+      'LtsteWrde,'
+      'cast(NmTabel as varchar(30)) as NmTabel'
+      'From'
+      'SleutelWaarden'
+    )
+    Options = []
+    Params = <>
+    left = 208
+    top = 96
+    object SQLQrySleutels_id: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = '_id'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQrySleutelsLtsteWrde: TLongintField
+      DisplayWidth = 10
+      FieldKind = fkData
+      FieldName = 'LtsteWrde'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQrySleutelsNmTabel: TStringField
+      DisplayWidth = 255
+      FieldKind = fkData
+      FieldName = 'NmTabel'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object SQLQryExecute: TSQLQuery
+    FieldDefs = <>
+    Database = SQLite3Con
+    Transaction = SQLTransact
+    Options = []
+    Params = <>
+    left = 350
+    top = 96
+  end
+  object ImageListMain: TImageList
+    left = 208
+    top = 32
+    Bitmap = {
+      4C69020000001000000010000000FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00EEEDEDFF0B2929FF1E4F4FFF354F4FFF254F4FFF254D4DFF314B4BFF0C13
+      13FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFF
+      FF00A29B9BFF70E8E8FF5B8686FF297979FF4E7171FF41C8C8FF8FEAEAFFB1C7
+      C7FFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FEFEFEFFFFFF
+      FF00063F3FFF81BDBDFF4A5050FF075555FF415555FF74F6F6FF94D4D4FFD4CE
+      CEFFFFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF004C36
+      36FF7DFFFFFF3FE2E2FFD6ECECFF14E9E9FF9EF8F8FF86F4F4FF504242FFFFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00FFFFFF00E7DADAFF32C1
+      C1FFA5A9A9FF000404FF100D0DFF121E1EFF5CE7E7FF396464FFF6F3F3FFFFFF
+      FF00FFFFFF00FFFFFF00FFFFFF00F6F6F6FFF6F6F6FFF6F6F6FFB3CDCDFF80CD
+      CDFF72F9F9FF84FDFDFFA6FDFDFF72FCFCFF86F2F2FF9A9797FFFDFDFDFFF6F6
+      F6FFF6F6F6FFF7F7F7FFFEFEFEFF161616FF575757FF545454FF514F4FFF4F4F
+      4FFF544F4FFF554F4FFF4B4F4FFF584F4FFF515050FF474749FF403E30FF4031
+      3EFF403740FF3E3E3EFFB1B1B1FF3C3C3CFFB7B7B7FF949494FFC9C9C9FFC5C5
+      C5FFC5C5C5FFC5C5C5FFC5C5C5FFC5C5C5FFCECECFFF5D5D49FF1028D8FF15D0
+      2DFF1C881CFF7C737CFF6E6E6EFF3A3A3AFFB2B2B2FF8F8F8FFFC4C4C4FFC0C0
+      C0FFC0C0C0FFC0C0C0FFC0C0C0FFC0C0C0FFC6C6C6FF737377FF37341BFF3C21
+      38FF3A293AFF7A7B7AFF717171FF333333FFCFCFCFFFC3C3C3FFBFBFBFFFBFBF
+      BFFFBFBFBFFFBFBFBFFFBFBFBFFFBFBFBFFFBFBFBFFFC6C6C6FFCBCBCCFFCBCC
+      CBFFCCCCCCFF787878FF727272FF848484FFC2C2C2FFD3D3D3FFD3D3D3FFD3D3
+      D3FFD3D3D3FFD3D3D3FFD3D3D3FFD3D3D3FFD3D3D3FFD3D3D3FFD3D3D3FFD3D3
+      D3FFD4D4D4FF808080FF666666FFEBEBEBFF272727FF2A2A2AFF2A2A2AFF2A2A
+      2AFF2A2A2AFF2A2A2AFF2A2A2AFF2A2A2AFF2A2A2AFF2A2A2AFF2A2A2AFF2929
+      29FF2A2A2AFF2C2C2CFFE6E6E6FFE1E1E1FF888888FFCACACAFFC9C9C9FFC9C9
+      C9FFC9C9C9FFC9C9C9FFC9C9C9FFC9C9C9FFC9C9C9FFC9C9C9FFC9C9C9FFC9C9
+      C9FFCCCCCCFF2C2C2CFFDCDCDCFFE1E1E1FF828282FFC3C3C3FFC2C2C2FFC2C2
+      C2FFC2C2C2FFC2C2C2FFC2C2C2FFC2C2C2FFC2C2C2FFC2C2C2FFC2C2C2FFC1C1
+      C1FFC5C5C5FF2B2B2BFFDCDCDCFFFFFFFF00ACACACFF2B2B2BFF2C2C2CFF2C2C
+      2CFF2C2C2CFF2C2C2CFF2C2C2CFF2C2C2CFF2C2C2CFF2C2C2CFF2C2C2CFF2C2C
+      2CFF2B2B2BFF818181FFE5E5E5FFFFFFFF00FFFFFF00DBDBDBFFDCDCDCFFDCDC
+      DCFFDCDCDCFFDCDCDCFFDCDCDCFFDCDCDCFFDCDCDCFFDCDCDCFFDCDCDCFFDCDC
+      DCFFDCDCDCFFE5E5E5FFFFFFFF00000000000000000000000000000000000000
+      0000000000001A4E25451A4E25D31A5126EA194D248F00000000164720000000
+      000000000000000000000000000000000000000000000000000000000000113C
+      1B0015451F2B194E24FF226930FE2B853EFF247034FF184C249A000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000014431F921C5829FF2B863EFE38AC50FF3CB154FE1D5929EE000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      000014401DA21D5C2BFF2D8940FF37AD50FF47C060FF1E5D2BF20A3414090000
+      00000000000000000000000000000000000012381E0000000000000000000000
+      0000133B1B9B1D5C2BFF2D8B41FF38AD50FF46BF60FF1E5C2BF1000000000000
+      0000000000000000000000000000000000000C2A12360F3016AC113719C3133B
+      1BBF133C1BE91E5D2BFF2E8C40FF38AE50FF47C060FE1D5929FB174922C4174A
+      22C3174922BE17482273000000000C2A133F123A1BFF1A5026FF1A5026FF1A50
+      25FF1A5126FF20642EFE2D8C41FF38AE51FF49BF61FF43AC59FE53B868FF61C0
+      76FF64C378FF318E45FF194E24A70E2F16BD1B5126FE1A4F25FE1A4F25FF1B50
+      26FF1A4F25FF226A30FF2D8D41FF39B051FF52C56AFF76D089FF9ADCA7FFBEE9
+      C7FFE3F4E6FF9ADFA8FF237033FF0E3016C71B5226FE1B5026FE1B5026FF1B50
+      26FF1A5025FF226C32FF2F8F42FF39B153FF54C66CFF77D089FF9BDDA9FFBFE8
+      C8FFD8F1DDFF96DFA6FF237033FF0C261263164420FF1A5026FF1A5025FF1A50
+      25FF1B5226FF216830FE308F43FF3AB353FF4DC165FE50B966FF60C475FE70CB
+      83FF6DCA80FE349247FF184C23CE000000000A240F6B103317DE113719EA1136
+      19E9113518F71F5F2DFE2F9244FF3AB354FF48BF60FF1A5125FD15431FEC1545
+      1FE9164720E715421FAE081F0B0A000000000000000000000000000000000000
+      00000B2712A11F612DFF309244FF3BB555FF47BD60FF194F25F2000000050000
+      000000000000000000000B261000000000000000000000000000000000000000
+      00000C2812A11F5F2CFF309344FF3CB454FF45BB5DFF184C23F208270F090000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000B2711991E5E2CFF2E8F43FE3BB355FF38AC50FE164620F0000E00040000
+      0000000000000000000000000000000000000000000000000000000000000000
+      00000A240F4616441FFF267636FE2E8F42FF247135FF0E3015B9000000000000
+      0000000000000000000000000000000000000000000000000000000000000000
+      0000000000000B261176123C1CF914441FFF0E2D14C6030F060A09230E000000
+      0000000000000000000000000000
+    }
+  end
+  object SQLQrySubjects: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = '_id'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'subj_Title'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'subj_Notes'
+        DataType = ftMemo
+        Precision = -1
+      end>
+    AfterInsert = SQLQrySubjectsAfterInsert
+    AfterPost = SQLQrySubjectsAfterPost
+    Database = SQLite3Con
+    Transaction = SQLTransact
+    SQL.Strings = (
+      'Select'
+      '  _id,'
+      '  cast(subj_Title as varchar(50)) as subj_Title,'
+      '  subj_Notes'
+      'From'
+      'Subjects'
+      'order by'
+      'subj_Title'
+    )
+    Options = []
+    Params = <>
+    left = 88
+    top = 403
+    object SQLQrySubjects_id: TAutoIncField
+      FieldKind = fkData
+      FieldName = '_id'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQrySubjectssubj_Title: TStringField
+      FieldKind = fkData
+      FieldName = 'subj_Title'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQrySubjectssubj_Notes: TMemoField
+      FieldKind = fkData
+      FieldName = 'subj_Notes'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+  end
+  object SQLQryList_Subjects: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = '_id'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'subj_Title'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'subj_Notes'
+        DataType = ftMemo
+        Precision = -1
+      end>
+    AfterInsert = SQLQrySubjectsAfterInsert
+    Database = SQLite3Con
+    Transaction = SQLTransact
+    ReadOnly = True
+    SQL.Strings = (
+      'Select 0 As _id, ''[none]'' As subj_Title, '''' As subj_Notes'
+      'union'
+      'Select'
+      '  _id,'
+      '  cast(subj_Title as varchar(50)) as subj_Title,'
+      '  subj_Notes'
+      'From'
+      'Subjects'
+      'order by'
+      'subj_Title'
+    )
+    Options = []
+    Params = <>
+    left = 208
+    top = 403
+    object SQLQrySubjects_id1: TAutoIncField
+      FieldKind = fkData
+      FieldName = '_id'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQrySubjectssubj_Title1: TStringField
+      FieldKind = fkData
+      FieldName = 'subj_Title'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQrySubjectssubj_Notes1: TMemoField
+      FieldKind = fkData
+      FieldName = 'subj_Notes'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+  end
+  object dsList_Subjects: TDataSource
+    DataSet = SQLQryList_Subjects
+    left = 350
+    top = 403
+  end
+  object SQLQryLst_Status: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = '_id'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'todo_Lu_Status'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'lupI_Fk_LookUpCd'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'lupI_Code'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'lupI_TextVal'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'lupI_MemoVal'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'lupI_IntVal'
+        DataType = ftInteger
+        Precision = -1
+      end>
+    Database = SQLite3Con
+    Transaction = SQLTransact
+    ReadOnly = True
+    SQL.Strings = (
+      'Select'
+      '  _id,'
+      '  _id as todo_Lu_Status,'
+      '  lupI_Fk_LookUpCd,'
+      '  lupI_Code,'
+      '  cast(lupI_TextVal as varchar(50)) as lupI_TextVal,'
+      '  lupI_MemoVal,'
+      '  lupI_IntVal'
+      'From'
+      '  LookUpItems'
+      'Where'
+      '  lupI_Fk_LookUpCd = 20'
+    )
+    Options = []
+    Params = <>
+    left = 88
+    top = 239
+    object SQLQryLst_Status_id: TLongintField
+      FieldKind = fkData
+      FieldName = '_id'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryLst_Statustodo_Lu_Status: TLongintField
+      FieldKind = fkData
+      FieldName = 'todo_Lu_Status'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryLst_StatuslupI_Fk_LookUpCd: TLongintField
+      FieldKind = fkData
+      FieldName = 'lupI_Fk_LookUpCd'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryLst_StatuslupI_Code: TMemoField
+      FieldKind = fkData
+      FieldName = 'lupI_Code'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object SQLQryLst_StatuslupI_TextVal: TStringField
+      FieldKind = fkData
+      FieldName = 'lupI_TextVal'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQryLst_StatuslupI_MemoVal: TMemoField
+      FieldKind = fkData
+      FieldName = 'lupI_MemoVal'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object SQLQryLst_StatuslupI_IntVal: TLongintField
+      FieldKind = fkData
+      FieldName = 'lupI_IntVal'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object SQLQryLst_Priority: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = '_id'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'lupI_Fk_LookUpCd'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'lupI_Code'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'lupI_TextVal'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'lupI_MemoVal'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'lupI_IntVal'
+        DataType = ftInteger
+        Precision = -1
+      end>
+    Database = SQLite3Con
+    Transaction = SQLTransact
+    ReadOnly = True
+    SQL.Strings = (
+      'Select'
+      '  _id,'
+      '  lupI_Fk_LookUpCd,'
+      '  lupI_Code,'
+      '  cast(lupI_TextVal as varchar(50)) as lupI_TextVal,'
+      '  lupI_MemoVal,'
+      '  lupI_IntVal'
+      'From'
+      '  LookUpItems'
+      'Where'
+      '  lupI_Fk_LookUpCd = 10'
+    )
+    Options = []
+    Params = <>
+    left = 88
+    top = 327
+    object SQLQryLst_Priority_id: TLongintField
+      FieldKind = fkData
+      FieldName = '_id'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryLst_PrioritylupI_Fk_LookUpCd: TLongintField
+      FieldKind = fkData
+      FieldName = 'lupI_Fk_LookUpCd'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryLst_PrioritylupI_Code: TMemoField
+      FieldKind = fkData
+      FieldName = 'lupI_Code'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object SQLQryLst_PrioritylupI_TextVal: TStringField
+      FieldKind = fkData
+      FieldName = 'lupI_TextVal'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQryLst_PrioritylupI_MemoVal: TMemoField
+      FieldKind = fkData
+      FieldName = 'lupI_MemoVal'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object SQLQryLst_PrioritylupI_IntVal: TLongintField
+      FieldKind = fkData
+      FieldName = 'lupI_IntVal'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object dsLst_FileStatus: TDataSource
+    DataSet = SQLQryLst_Status
+    left = 208
+    top = 239
+  end
+  object dsLst_ItemPriority: TDataSource
+    DataSet = SQLQryLst_Priority
+    left = 208
+    top = 327
+  end
+  object SQLQryLookUps: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = '_id'
+        DataType = ftAutoInc
+        Precision = -1
+      end    
+      item
+        Name = 'lkup_LookUpCd'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'lkup_Nm'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'lkup_Notes'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'lkup_Code'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end>
+    AfterInsert = SQLQryLookUpsAfterInsert
+    AfterPost = SQLQryLookUpsAfterPost
+    Database = SQLite3Con
+    Transaction = SQLTransact
+    SQL.Strings = (
+      'Select'
+      '  _id,'
+      '  lkup_LookUpCd,'
+      '  cast(lkup_Nm as varchar(60)) as lkup_Nm,'
+      '  lkup_Notes,'
+      '  cast(lkup_Code as varchar(30)) as lkup_Code'
+      'From'
+      '  LookUps'
+      'order by'
+      '  lkup_Nm'
+    )
+    Options = []
+    Params = <>
+    left = 88
+    top = 184
+    object SQLQryLookUps_id: TAutoIncField
+      FieldKind = fkData
+      FieldName = '_id'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryLookUpslkup_LookUpCd: TLongintField
+      FieldKind = fkData
+      FieldName = 'lkup_LookUpCd'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryLookUpslkup_Nm: TStringField
+      FieldKind = fkData
+      FieldName = 'lkup_Nm'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQryLookUpslkup_Notes: TMemoField
+      FieldKind = fkData
+      FieldName = 'lkup_Notes'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object SQLQryLookUpslkup_Code: TStringField
+      FieldKind = fkData
+      FieldName = 'lkup_Code'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object SQLQryLookUpItems: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = '_id'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'lupI_Fk_LookUpCd'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'lupI_Code'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'lupI_TextVal'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'lupI_MemoVal'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'lupI_IntVal'
+        DataType = ftInteger
+        Precision = -1
+      end>
+    AfterInsert = SQLQryLookUpItemsAfterInsert
+    AfterPost = SQLQryLookUpItemsAfterPost
+    Database = SQLite3Con
+    Transaction = SQLTransact
+    SQL.Strings = (
+      'Select'
+      '  _id,'
+      '  lupI_Fk_LookUpCd,'
+      '  lupI_Code,'
+      '  cast(lupI_TextVal as varchar(50)) as lupI_TextVal,'
+      '  lupI_MemoVal,'
+      '  lupI_IntVal'
+      'From'
+      '  LookUpItems'
+      'Where'
+      '  lupI_Fk_LookUpCd = :LkUpId'
+    )
+    Options = []
+    Params = <    
+      item
+        DataType = ftUnknown
+        Name = 'LkUpId'
+        ParamType = ptInput
+      end>
+    left = 208
+    top = 168
+    object SQLQryLookUpItems_id: TLongintField
+      FieldKind = fkData
+      FieldName = '_id'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryLookUpItemslupI_Fk_LookUpCd: TLongintField
+      FieldKind = fkData
+      FieldName = 'lupI_Fk_LookUpCd'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryLookUpItemslupI_Code: TMemoField
+      FieldKind = fkData
+      FieldName = 'lupI_Code'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object SQLQryLookUpItemslupI_TextVal: TStringField
+      FieldKind = fkData
+      FieldName = 'lupI_TextVal'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQryLookUpItemslupI_MemoVal: TMemoField
+      FieldKind = fkData
+      FieldName = 'lupI_MemoVal'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object SQLQryLookUpItemslupI_IntVal: TLongintField
+      FieldKind = fkData
+      FieldName = 'lupI_IntVal'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object SQLQryTodos: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = '_id'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'todo_Fk_Subj'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'todo_Ctrl'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'todo_Title'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'todo_Notes'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'todo_KeyWords'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'todo_DocFile'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'todo_DatGen'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'todo_DatAlt'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'todo_YNPrint'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'todo_YNShow'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'todo_VolgNr'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'todo_Lu_Status'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'todo_Lu_Priority'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'todo_HasDeadLine'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'todo_DatDeadLine'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'todo_DatAfgewerkt'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'todo_IsAfgewerkt'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'todo_DatStart'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'todo_LastSerial'
+        DataType = ftInteger
+        Precision = -1
+      end>
+    AfterInsert = SQLQryTodosAfterInsert
+    AfterPost = SQLQryTodosAfterPost
+    Database = SQLite3Con
+    Transaction = SQLTransact
+    SQL.Strings = (
+      'Select'
+      '    _id    ,'
+      '    todo_Fk_Subj    ,'
+      '    todo_Ctrl    ,'
+      '    cast(todo_Title as varchar(254)) as todo_Title   ,'
+      '    todo_Notes    ,'
+      '    todo_KeyWords    ,'
+      '    cast(todo_DocFile as varchar(254)) as todo_DocFile   ,'
+      '    todo_DatGen        ,'
+      '    todo_DatAlt          ,'
+      '    todo_YNPrint         ,'
+      '    todo_YNShow       ,'
+      '    todo_VolgNr       ,'
+      '    todo_Lu_Status,'
+      '    todo_Lu_Priority,'
+      '    todo_HasDeadLine,'
+      '    cast(todo_DatDeadLine as varchar(20)) as todo_DatDeadLine,'
+      '    cast(todo_DatAfgewerkt as varchar(20)) as todo_DatAfgewerkt,'
+      '    todo_IsAfgewerkt,'
+      '    cast(todo_DatStart as varchar(20)) as todo_DatStart,'
+      '  todo_LastSerial'
+      'From'
+      ' Todos'
+      'Where'
+      '  (todo_IsAfgewerkt = 0)'
+      'Order by'
+      'todo_VolgNr, todo_Title'
+      ''
+    )
+    InsertSQL.Strings = (
+      'Insert into'
+      '  Todos'
+      '('
+      '    todo_Fk_Subj  ,'
+      '    todo_Ctrl ,'
+      '    todo_Title   ,'
+      '    todo_Notes   ,'
+      '    todo_KeyWords   ,'
+      '    todo_DocFile    ,'
+      '    todo_DatGen       ,'
+      '    todo_DatAlt        ,'
+      '    todo_YNPrint       ,'
+      '    todo_YNShow     ,'
+      '    todo_VolgNr     ,'
+      '    todo_Lu_Status ,'
+      '    todo_Lu_Priority ,'
+      '    todo_HasDeadLine ,'
+      '    todo_DatDeadLine ,'
+      '    todo_IsAfgewerkt,'
+      '    todo_DatAfgewerkt,'
+      '    todo_DatStart,'
+      '    todo_LastSerial'
+      ')'
+      'Values'
+      '('
+      '    :todo_Fk_Subj    ,'
+      '    :todo_Ctrl   ,'
+      '    :todo_Title   ,'
+      '    :todo_Notes   ,'
+      '    :todo_KeyWords   ,'
+      '    :todo_DocFile   ,'
+      '    :todo_DatGen       ,'
+      '    :todo_DatAlt         ,'
+      '    :todo_YNPrint        ,'
+      '    :todo_YNShow      ,'
+      '    :todo_VolgNr      ,'
+      '    :todo_Lu_Status,'
+      '    :todo_Lu_Priority,'
+      '    :todo_HasDeadLine,'
+      '    :todo_DatDeadLine,'
+      '    :todo_IsAfgewerkt,'
+      '    :todo_DatAfgewerkt,'
+      '    :todo_DatStart,'
+      '    :todo_LastSerial'
+      ')'
+      ''
+    )
+    UpdateSQL.Strings = (
+      'Update'
+      '  Todos'
+      'Set'
+      '    todo_Fk_Subj = :todo_Fk_Subj    ,'
+      '    todo_Ctrl = :todo_Ctrl   ,'
+      '    todo_Title = :todo_Title   ,'
+      '    todo_Notes = :todo_Notes   ,'
+      '    todo_KeyWords = :todo_KeyWords   ,'
+      '    todo_DocFile = :todo_DocFile   ,'
+      '    todo_DatGen = :todo_DatGen       ,'
+      '    todo_DatAlt = :todo_DatAlt         ,'
+      '    todo_YNPrint = :todo_YNPrint        ,'
+      '    todo_YNShow = :todo_YNShow      ,'
+      '    todo_VolgNr = :todo_VolgNr      ,'
+      '    todo_Lu_Status = :todo_Lu_Status,'
+      '    todo_Lu_Priority = :todo_Lu_Priority,'
+      '    todo_HasDeadLine = :todo_HasDeadLine,'
+      '    todo_DatDeadLine = :todo_DatDeadLine,'
+      '    todo_DatAfgewerkt = :todo_DatAfgewerkt,'
+      '    todo_IsAfgewerkt = :todo_IsAfgewerkt,'
+      '    todo_DatStart = :todo_DatStart,'
+      '    todo_LastSerial = :todo_LastSerial'
+      'Where'
+      '  (_id = :_id)'
+    )
+    DeleteSQL.Strings = (
+      'Delete from'
+      '  Todos'
+      'where'
+      '  _id = :_id'
+    )
+    Options = []
+    Params = <>
+    left = 88
+    top = 488
+    object SQLQryTodos_id: TAutoIncField
+      FieldKind = fkData
+      FieldName = '_id'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryTodostodo_Fk_Subj: TLongintField
+      FieldKind = fkData
+      FieldName = 'todo_Fk_Subj'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryTodostodo_Ctrl: TMemoField
+      FieldKind = fkData
+      FieldName = 'todo_Ctrl'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object SQLQryTodostodo_Title: TStringField
+      FieldKind = fkData
+      FieldName = 'todo_Title'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQryTodostodo_Notes: TMemoField
+      FieldKind = fkData
+      FieldName = 'todo_Notes'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object SQLQryTodostodo_KeyWords: TMemoField
+      FieldKind = fkData
+      FieldName = 'todo_KeyWords'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object SQLQryTodostodo_DatGen: TMemoField
+      FieldKind = fkData
+      FieldName = 'todo_DatGen'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object SQLQryTodostodo_DatAlt: TMemoField
+      FieldKind = fkData
+      FieldName = 'todo_DatAlt'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object SQLQryTodostodo_YNPrint: TLongintField
+      FieldKind = fkData
+      FieldName = 'todo_YNPrint'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryTodostodo_YNShow: TLongintField
+      FieldKind = fkData
+      FieldName = 'todo_YNShow'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryTodostodo_VolgNr: TLongintField
+      FieldKind = fkData
+      FieldName = 'todo_VolgNr'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryTodostodo_LastSerial: TLongintField
+      FieldKind = fkData
+      FieldName = 'todo_LastSerial'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryTodostodo_DocFile: TStringField
+      FieldKind = fkData
+      FieldName = 'todo_DocFile'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQryTodostodo_Lu_Status: TLongintField
+      FieldKind = fkData
+      FieldName = 'todo_Lu_Status'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryTodostodo_HasDeadLine: TLongintField
+      FieldKind = fkData
+      FieldName = 'todo_HasDeadLine'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryTodostodo_DatDeadLine: TStringField
+      FieldKind = fkData
+      FieldName = 'todo_DatDeadLine'
+      Index = 15
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object StringField1: TStringField
+      DisplayLabel = 'Priority'
+      FieldKind = fkLookup
+      FieldName = 'lupl_Priority'
+      Index = 16
+      KeyFields = 'todo_Lu_Priority'
+      LookupCache = False
+      LookupDataSet = SQLQryLst_Priority
+      LookupKeyFields = '_id'
+      LookupResultField = 'lupI_TextVal'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object StringField2: TStringField
+      DisplayLabel = 'Status'
+      FieldKind = fkLookup
+      FieldName = 'lupI_Status'
+      Index = 17
+      KeyFields = 'todo_Lu_Status'
+      LookupCache = False
+      LookupDataSet = SQLQryLst_Status
+      LookupKeyFields = '_id'
+      LookupResultField = 'lupI_TextVal'
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQryTodostodo_Lu_Priority: TLongintField
+      FieldKind = fkData
+      FieldName = 'todo_Lu_Priority'
+      Index = 18
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryTodostodo_IsAfgewerkt: TLongintField
+      FieldKind = fkData
+      FieldName = 'todo_IsAfgewerkt'
+      Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryTodostodo_DatStart: TStringField
+      FieldKind = fkData
+      FieldName = 'todo_DatStart'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object SQLQryAgendaItems: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = '_id'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'agit_Fk_Subj'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'agit_Ctrl'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'agit_Title'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'agit_Notes'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'agit_YNPrint'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'agit_YNShow'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'agit_VolgNr'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'agit_LastSerial'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'agit_DatPlan'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'agit_DatDeadLine'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'agit_DatReminder'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'agit_Importance'
+        DataType = ftInteger
+        Precision = -1
+      end>
+    AfterDelete = SQLQryAfterPost
+    AfterInsert = SQLQryAfterInsert
+    AfterPost = SQLQryAfterPost
+    OnCalcFields = SQLQryAgendaItemsCalcFields
+    Database = SQLite3Con
+    Transaction = SQLTransact
+    SQL.Strings = (
+      'Select'
+      #9'_id'#9','
+      #9'agit_Fk_Subj'#9','
+      #9'agit_Ctrl'#9','
+      #9'cast(agit_Title'#9'as varchar(254)) as agit_Title,'
+      #9'agit_Notes'#9','
+      #9'agit_YNPrint'#9','
+      #9'agit_YNShow'#9','
+      #9'agit_VolgNr'#9','
+      #9'agit_LastSerial'#9','
+      #9'cast(agit_DatPlan'#9'as varchar(20)) as agit_DatPlan,'
+      #9'cast(agit_DatDeadLine'#9'as varchar(20)) as agit_DatDeadLine,'
+      #9'cast (agit_DatReminder as varchar(20)) as agit_DatReminder'#9','
+      #9'agit_Importance'
+      'From'
+      '  AgendaItems'
+      'Order by'
+      '  agit_DatPlan'
+    )
+    Options = []
+    Params = <>
+    left = 352
+    top = 184
+    object SQLQryAgendaItems_id: TAutoIncField
+      FieldKind = fkData
+      FieldName = '_id'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere, pfInKey]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryAgendaItemsagit_Fk_Subj: TLongintField
+      FieldKind = fkData
+      FieldName = 'agit_Fk_Subj'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryAgendaItemsagit_Ctrl: TMemoField
+      FieldKind = fkData
+      FieldName = 'agit_Ctrl'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object SQLQryAgendaItemsagit_Notes: TMemoField
+      FieldKind = fkData
+      FieldName = 'agit_Notes'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object SQLQryAgendaItemsagit_YNPrint: TLongintField
+      FieldKind = fkData
+      FieldName = 'agit_YNPrint'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryAgendaItemsagit_YNShow: TLongintField
+      FieldKind = fkData
+      FieldName = 'agit_YNShow'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryAgendaItemsagit_VolgNr: TLongintField
+      FieldKind = fkData
+      FieldName = 'agit_VolgNr'
+      Index = 6
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryAgendaItemsagit_LastSerial: TLongintField
+      FieldKind = fkData
+      FieldName = 'agit_LastSerial'
+      Index = 7
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryAgendaItemsagit_Importance: TLongintField
+      FieldKind = fkData
+      FieldName = 'agit_Importance'
+      Index = 8
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryAgendaItemsagit_Title: TStringField
+      FieldKind = fkData
+      FieldName = 'agit_Title'
+      Index = 9
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQryAgendaItemsagit_DatDeadLine: TStringField
+      FieldKind = fkData
+      FieldName = 'agit_DatDeadLine'
+      Index = 10
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQryAgendaItemsagit_DatReminder: TStringField
+      FieldKind = fkData
+      FieldName = 'agit_DatReminder'
+      Index = 11
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQryAgendaItemsagit_DatPlan: TStringField
+      FieldKind = fkData
+      FieldName = 'agit_DatPlan'
+      Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQryAgendaItemsagit_Clc_TimeToGo1: TStringField
+      FieldKind = fkCalculated
+      FieldName = 'agit_Clc_TimeToGo'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = []
+      ReadOnly = True
+      Required = False
+      Size = 35
+    end
+  end
+end

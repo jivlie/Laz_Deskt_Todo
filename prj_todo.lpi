@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<CONFIG>
+  <ProjectOptions>
+    <Version Value="9"/>
+    <General>
+      <SessionStorage Value="InProjectDir"/>
+      <MainUnit Value="0"/>
+      <Title Value="prj_todo"/>
+      <ResourceType Value="res"/>
+      <UseXPManifest Value="True"/>
+      <Icon Value="0"/>
+    </General>
+    <i18n>
+      <EnableI18N LFM="False"/>
+    </i18n>
+    <VersionInfo>
+      <StringTable ProductVersion=""/>
+    </VersionInfo>
+    <BuildModes Count="1">
+      <Item1 Name="Default" Default="True"/>
+    </BuildModes>
+    <PublishOptions>
+      <Version Value="2"/>
+      <DestinationDirectory Value="/home/corbij/Portable/Projects/Lazarus/Prj_Laz_Todo"/>
+    </PublishOptions>
+    <RunParams>
+      <local>
+        <FormatVersion Value="1"/>
+      </local>
+    </RunParams>
+    <RequiredPackages Count="9">
+      <Item1>
+        <PackageName Value="lazreport"/>
+      </Item1>
+      <Item2>
+        <PackageName Value="RunTimeTypeInfoControls"/>
+      </Item2>
+      <Item3>
+        <PackageName Value="DateTimeCtrls"/>
+      </Item3>
+      <Item4>
+        <PackageName Value="FCL"/>
+      </Item4>
+      <Item5>
+        <PackageName Value="SQLDBLaz"/>
+      </Item5>
+      <Item6>
+        <PackageName Value="Pck_ProfSoft"/>
+      </Item6>
+      <Item7>
+        <PackageName Value="Stax"/>
+      </Item7>
+      <Item8>
+        <PackageName Value="fpOdf"/>
+      </Item8>
+      <Item9>
+        <PackageName Value="LCL"/>
+      </Item9>
+    </RequiredPackages>
+    <Units Count="17">
+      <Unit0>
+        <Filename Value="prj_todo.lpr"/>
+        <IsPartOfProject Value="True"/>
+      </Unit0>
+      <Unit1>
+        <Filename Value="fpvectorial.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit1>
+      <Unit2>
+        <Filename Value="fpvutils.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit2>
+      <Unit3>
+        <Filename Value="datamodule.lfm"/>
+        <IsPartOfProject Value="True"/>
+      </Unit3>
+      <Unit4>
+        <Filename Value="datamodule.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="DatModMain"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="DataModule"/>
+      </Unit4>
+      <Unit5>
+        <Filename Value="globals.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit5>
+      <Unit6>
+        <Filename Value="mainform.lfm"/>
+        <IsPartOfProject Value="True"/>
+      </Unit6>
+      <Unit7>
+        <Filename Value="mainform.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="FrmMain"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="MainForm"/>
+      </Unit7>
+      <Unit8>
+        <Filename Value="frm_subjects.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmSubjects"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit8>
+      <Unit9>
+        <Filename Value="frm_lookups.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmLookUps"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+        <UnitName Value="frm_Lookups"/>
+      </Unit9>
+      <Unit10>
+        <Filename Value="fram_lkupitems.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="framLkUpItems"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+        <UnitName Value="fram_LkUpItems"/>
+      </Unit10>
+      <Unit11>
+        <Filename Value="cls_entities.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="Cls_Entities"/>
+      </Unit11>
+      <Unit12>
+        <Filename Value="frm_items.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmItems"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit12>
+      <Unit13>
+        <Filename Value="sqlcommands.pas"/>
+        <IsPartOfProject Value="True"/>
+      </Unit13>
+      <Unit14>
+        <Filename Value="fram_standaard.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="framStandaard"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Frame"/>
+      </Unit14>
+      <Unit15>
+        <Filename Value="../Comp-NoProblem/ps_dbsqlitedatetimepicker.pas"/>
+        <IsPartOfProject Value="True"/>
+        <UnitName Value="ps_dbSqliteDateTimePicker"/>
+      </Unit15>
+      <Unit16>
+        <Filename Value="frm_agenda.pas"/>
+        <IsPartOfProject Value="True"/>
+        <ComponentName Value="frmAgenda"/>
+        <HasResources Value="True"/>
+        <ResourceBaseClass Value="Form"/>
+      </Unit16>
+    </Units>
+  </ProjectOptions>
+  <CompilerOptions>
+    <Version Value="11"/>
+    <Target>
+      <Filename Value="prj_todo"/>
+    </Target>
+    <SearchPaths>
+      <IncludeFiles Value="$(ProjOutDir)"/>
+      <OtherUnitFiles Value="../Gemeenschappelijk"/>
+      <UnitOutputDirectory Value="lib/$(TargetCPU)-$(TargetOS)"/>
+    </SearchPaths>
+    <Linking>
+      <Options>
+        <Win32>
+          <GraphicApplication Value="True"/>
+        </Win32>
+      </Options>
+    </Linking>
+  </CompilerOptions>
+</CONFIG>
