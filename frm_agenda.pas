@@ -112,21 +112,21 @@ end;
 
 procedure TfrmAgenda.rdgrpAllOrBySubjClick(Sender: TObject);
 begin
-  //with MainDataMod do
-  //begin
-  //  if rdgrpAllOrBySubj.ItemIndex = 0 then
-  //  begin
-  //    dbCmbBxSubjects.Enabled := False;
-  //    // Save current group
-  //    qCurSubj := SQLQrySubjects_id.AsLongint;
-  //    ChangeSqlQrySql(SQLQryItems, cns_Sql_ItemsAll, '');
-  //  end;
-  //  if rdgrpAllOrBySubj.ItemIndex = 1 then
-  //  begin
-  //    dbCmbBxSubjects.Enabled := True;
-  //    ChangeSqlQrySql(SQLQryItems, cns_Sql_ItemsBySubj, 'SubjectId', qCurSubj);
-  //  end;
-  //end;
+  with MainDataMod do
+  begin
+    if rdgrpAllOrBySubj.ItemIndex = 0 then
+    begin
+      dbCmbBxSubjects.Enabled := False;
+      // Save current group
+      qCurSubj := SQLQrySubjects_id.AsLongint;
+      ChangeSqlQrySql(SQLQryAgendaItems, cns_Sql_AllAgendaItems, '');
+    end;
+    if rdgrpAllOrBySubj.ItemIndex = 1 then
+    begin
+      dbCmbBxSubjects.Enabled := True;
+      ChangeSqlQrySql(SQLQryAgendaItems, cns_Sql_AgendaItemsBySubj, 'SubjId', qCurSubj);
+    end;
+  end;
 end;
 
 procedure TfrmAgenda.thePageControlChange(Sender: TObject);

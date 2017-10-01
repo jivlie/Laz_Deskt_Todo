@@ -3,11 +3,11 @@ object DatModMain: TDatModMain
   OnDestroy = DataModuleDestroy
   OldCreateOrder = False
   Height = 617
-  HorizontalOffset = 164
-  VerticalOffset = 172
+  HorizontalOffset = 142
+  VerticalOffset = 193
   Width = 546
   object SQLite3Con: TSQLite3Connection
-    Connected = True
+    Connected = False
     LoginPrompt = False
     BeforeConnect = SQLite3ConBeforeConnect
     DatabaseName = '/home/corbij/Portable/Documenten/DataBases/Sqlite/ToDo/dbTodo.db'
@@ -19,7 +19,7 @@ object DatModMain: TDatModMain
     top = 32
   end
   object SQLTransact: TSQLTransaction
-    Active = True
+    Active = False
     Action = caCommitRetaining
     Database = SQLite3Con
     Options = []
@@ -313,6 +313,7 @@ object DatModMain: TDatModMain
     top = 403
   end
   object SQLQryLst_Status: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = '_id'
@@ -441,6 +442,7 @@ object DatModMain: TDatModMain
     end
   end
   object SQLQryLst_Priority: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = '_id'
@@ -782,6 +784,7 @@ object DatModMain: TDatModMain
     end
   end
   object SQLQryTodos: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = '_id'
@@ -884,6 +887,11 @@ object DatModMain: TDatModMain
         Size = 255
       end    
       item
+        Name = 'todo_IsAgenda'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
         Name = 'todo_LastSerial'
         DataType = ftInteger
         Precision = -1
@@ -913,6 +921,7 @@ object DatModMain: TDatModMain
       '    cast(todo_DatAfgewerkt as varchar(20)) as todo_DatAfgewerkt,'
       '    todo_IsAfgewerkt,'
       '    cast(todo_DatStart as varchar(20)) as todo_DatStart,'
+      '    todo_IsAgenda,'
       '  todo_LastSerial'
       'From'
       ' Todos'
@@ -992,7 +1001,9 @@ object DatModMain: TDatModMain
       '    todo_DatAfgewerkt = :todo_DatAfgewerkt,'
       '    todo_IsAfgewerkt = :todo_IsAfgewerkt,'
       '    todo_DatStart = :todo_DatStart,'
-      '    todo_LastSerial = :todo_LastSerial'
+      '    todo_IsAgenda = :todo_IsAgenda,'
+      '        todo_LastSerial = :todo_LastSerial'
+      ''
       'Where'
       '  (_id = :_id)'
     )
@@ -1004,7 +1015,7 @@ object DatModMain: TDatModMain
     )
     Options = []
     Params = <>
-    left = 88
+    left = 90
     top = 488
     object SQLQryTodos_id: TAutoIncField
       FieldKind = fkData
@@ -1231,103 +1242,178 @@ object DatModMain: TDatModMain
       Required = False
       Size = 255
     end
+    object SQLQryTodostodo_IsAgenda: TLongintField
+      FieldKind = fkData
+      FieldName = 'todo_IsAgenda'
+      Index = 22
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
   end
   object SQLQryAgendaItems: TSQLQuery
+    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = '_id'
+        DataType = ftAutoInc
+        Precision = -1
+      end    
+      item
+        Name = 'todo_Fk_Subj'
         DataType = ftInteger
         Precision = -1
       end    
       item
-        Name = 'agit_Fk_Subj'
-        DataType = ftInteger
-        Precision = -1
-      end    
-      item
-        Name = 'agit_Ctrl'
+        Name = 'todo_Ctrl'
         DataType = ftMemo
         Precision = -1
       end    
       item
-        Name = 'agit_Title'
+        Name = 'todo_Title'
         DataType = ftString
         Precision = -1
         Size = 255
       end    
       item
-        Name = 'agit_Notes'
+        Name = 'todo_Notes'
         DataType = ftMemo
         Precision = -1
       end    
       item
-        Name = 'agit_YNPrint'
-        DataType = ftInteger
+        Name = 'todo_KeyWords'
+        DataType = ftMemo
         Precision = -1
       end    
       item
-        Name = 'agit_YNShow'
-        DataType = ftInteger
-        Precision = -1
-      end    
-      item
-        Name = 'agit_VolgNr'
-        DataType = ftInteger
-        Precision = -1
-      end    
-      item
-        Name = 'agit_LastSerial'
-        DataType = ftInteger
-        Precision = -1
-      end    
-      item
-        Name = 'agit_DatPlan'
+        Name = 'todo_DocFile'
         DataType = ftString
         Precision = -1
         Size = 255
       end    
       item
-        Name = 'agit_DatDeadLine'
+        Name = 'todo_DatGen'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'todo_DatAlt'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'todo_YNPrint'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'todo_YNShow'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'todo_VolgNr'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'todo_Lu_Status'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'todo_Lu_Priority'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'todo_HasDeadLine'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'todo_DatDeadLine'
         DataType = ftString
         Precision = -1
         Size = 255
       end    
       item
-        Name = 'agit_DatReminder'
+        Name = 'todo_DatAfgewerkt'
         DataType = ftString
         Precision = -1
         Size = 255
       end    
       item
-        Name = 'agit_Importance'
+        Name = 'todo_DatStart'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'todo_DatPlan'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'todo_IsAgenda'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'todo_Importance'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'todo_IsAfgewerkt'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'todo_LastSerial'
         DataType = ftInteger
         Precision = -1
       end>
     AfterDelete = SQLQryAfterPost
-    AfterInsert = SQLQryAfterInsert
+    AfterInsert = SQLQryAgendaItemsAfterInsert
     AfterPost = SQLQryAfterPost
     OnCalcFields = SQLQryAgendaItemsCalcFields
     Database = SQLite3Con
     Transaction = SQLTransact
     SQL.Strings = (
       'Select'
-      #9'_id'#9','
-      #9'agit_Fk_Subj'#9','
-      #9'agit_Ctrl'#9','
-      #9'cast(agit_Title'#9'as varchar(254)) as agit_Title,'
-      #9'agit_Notes'#9','
-      #9'agit_YNPrint'#9','
-      #9'agit_YNShow'#9','
-      #9'agit_VolgNr'#9','
-      #9'agit_LastSerial'#9','
-      #9'cast(agit_DatPlan'#9'as varchar(20)) as agit_DatPlan,'
-      #9'cast(agit_DatDeadLine'#9'as varchar(20)) as agit_DatDeadLine,'
-      #9'cast (agit_DatReminder as varchar(20)) as agit_DatReminder'#9','
-      #9'agit_Importance'
+      '    _id    ,'
+      '    todo_Fk_Subj    ,'
+      '    todo_Ctrl    ,'
+      '    cast(todo_Title as varchar(254)) as todo_Title   ,'
+      '    todo_Notes    ,'
+      '    todo_KeyWords    ,'
+      '    cast(todo_DocFile as varchar(254)) as todo_DocFile   ,'
+      '    todo_DatGen        ,'
+      '    todo_DatAlt          ,'
+      '    todo_YNPrint         ,'
+      '    todo_YNShow       ,'
+      '    todo_VolgNr       ,'
+      '    todo_Lu_Status,'
+      '    todo_Lu_Priority,'
+      '    todo_HasDeadLine,'
+      '    cast(todo_DatDeadLine as varchar(20)) as todo_DatDeadLine,'
+      '    cast(todo_DatAfgewerkt as varchar(20)) as todo_DatAfgewerkt,'
+      '    cast(todo_DatStart as varchar(20)) as todo_DatStart,'
+      '    cast(todo_DatPlan as varchar(20)) as todo_DatPlan,'
+      '    todo_IsAgenda,'
+      '    todo_Importance,'
+      '    todo_IsAfgewerkt,'
+      '  todo_LastSerial'
       'From'
-      '  AgendaItems'
+      ' Todos'
+      'Where'
+      ' (todo_IsAgenda = 1)'
       'Order by'
-      '  agit_DatPlan'
+      'todo_VolgNr, todo_Title'
+      ''
     )
     Options = []
     Params = <>
@@ -1342,18 +1428,18 @@ object DatModMain: TDatModMain
       ReadOnly = False
       Required = False
     end
-    object SQLQryAgendaItemsagit_Fk_Subj: TLongintField
+    object SQLQryAgendaItemstodo_Fk_Subj: TLongintField
       FieldKind = fkData
-      FieldName = 'agit_Fk_Subj'
+      FieldName = 'todo_Fk_Subj'
       Index = 1
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
     end
-    object SQLQryAgendaItemsagit_Ctrl: TMemoField
+    object SQLQryAgendaItemstodo_Ctrl: TMemoField
       FieldKind = fkData
-      FieldName = 'agit_Ctrl'
+      FieldName = 'todo_Ctrl'
       Index = 2
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
@@ -1362,10 +1448,20 @@ object DatModMain: TDatModMain
       BlobType = ftMemo
       Transliterate = False
     end
-    object SQLQryAgendaItemsagit_Notes: TMemoField
+    object SQLQryAgendaItemstodo_Title: TStringField
       FieldKind = fkData
-      FieldName = 'agit_Notes'
+      FieldName = 'todo_Title'
       Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQryAgendaItemstodo_Notes: TMemoField
+      FieldKind = fkData
+      FieldName = 'todo_Notes'
+      Index = 4
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -1373,100 +1469,188 @@ object DatModMain: TDatModMain
       BlobType = ftMemo
       Transliterate = False
     end
-    object SQLQryAgendaItemsagit_YNPrint: TLongintField
+    object SQLQryAgendaItemstodo_KeyWords: TMemoField
       FieldKind = fkData
-      FieldName = 'agit_YNPrint'
-      Index = 4
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-    end
-    object SQLQryAgendaItemsagit_YNShow: TLongintField
-      FieldKind = fkData
-      FieldName = 'agit_YNShow'
+      FieldName = 'todo_KeyWords'
       Index = 5
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      BlobType = ftMemo
+      Transliterate = False
     end
-    object SQLQryAgendaItemsagit_VolgNr: TLongintField
+    object SQLQryAgendaItemstodo_DocFile: TStringField
       FieldKind = fkData
-      FieldName = 'agit_VolgNr'
+      FieldName = 'todo_DocFile'
       Index = 6
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      Size = 255
     end
-    object SQLQryAgendaItemsagit_LastSerial: TLongintField
+    object SQLQryAgendaItemstodo_DatGen: TMemoField
       FieldKind = fkData
-      FieldName = 'agit_LastSerial'
+      FieldName = 'todo_DatGen'
       Index = 7
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      BlobType = ftMemo
+      Transliterate = False
     end
-    object SQLQryAgendaItemsagit_Importance: TLongintField
+    object SQLQryAgendaItemstodo_DatAlt: TMemoField
       FieldKind = fkData
-      FieldName = 'agit_Importance'
+      FieldName = 'todo_DatAlt'
       Index = 8
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
+      BlobType = ftMemo
+      Transliterate = False
     end
-    object SQLQryAgendaItemsagit_Title: TStringField
+    object SQLQryAgendaItemstodo_YNPrint: TLongintField
       FieldKind = fkData
-      FieldName = 'agit_Title'
+      FieldName = 'todo_YNPrint'
       Index = 9
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      Size = 255
     end
-    object SQLQryAgendaItemsagit_DatDeadLine: TStringField
+    object SQLQryAgendaItemstodo_YNShow: TLongintField
       FieldKind = fkData
-      FieldName = 'agit_DatDeadLine'
+      FieldName = 'todo_YNShow'
       Index = 10
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      Size = 255
     end
-    object SQLQryAgendaItemsagit_DatReminder: TStringField
+    object SQLQryAgendaItemstodo_VolgNr: TLongintField
       FieldKind = fkData
-      FieldName = 'agit_DatReminder'
+      FieldName = 'todo_VolgNr'
       Index = 11
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
-      Size = 255
     end
-    object SQLQryAgendaItemsagit_DatPlan: TStringField
+    object SQLQryAgendaItemstodo_Lu_Status: TLongintField
       FieldKind = fkData
-      FieldName = 'agit_DatPlan'
+      FieldName = 'todo_Lu_Status'
       Index = 12
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryAgendaItemstodo_Lu_Priority: TLongintField
+      FieldKind = fkData
+      FieldName = 'todo_Lu_Priority'
+      Index = 13
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryAgendaItemstodo_HasDeadLine: TLongintField
+      FieldKind = fkData
+      FieldName = 'todo_HasDeadLine'
+      Index = 14
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryAgendaItemstodo_DatDeadLine: TStringField
+      FieldKind = fkData
+      FieldName = 'todo_DatDeadLine'
+      Index = 15
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
       Size = 255
     end
-    object SQLQryAgendaItemsagit_Clc_TimeToGo1: TStringField
+    object SQLQryAgendaItemstodo_DatAfgewerkt: TStringField
+      FieldKind = fkData
+      FieldName = 'todo_DatAfgewerkt'
+      Index = 16
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQryAgendaItemstodo_DatStart: TStringField
+      FieldKind = fkData
+      FieldName = 'todo_DatStart'
+      Index = 17
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQryAgendaItemstodo_DatPlan: TStringField
+      FieldKind = fkData
+      FieldName = 'todo_DatPlan'
+      Index = 18
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQryAgendaItemstodo_IsAgenda: TLongintField
+      FieldKind = fkData
+      FieldName = 'todo_IsAgenda'
+      Index = 19
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryAgendaItemstodo_Importance: TLongintField
+      FieldKind = fkData
+      FieldName = 'todo_Importance'
+      Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryAgendaItemstodo_IsAfgewerkt: TLongintField
+      FieldKind = fkData
+      FieldName = 'todo_IsAfgewerkt'
+      Index = 21
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryAgendaItemstodo_LastSerial: TLongintField
+      FieldKind = fkData
+      FieldName = 'todo_LastSerial'
+      Index = 22
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLQryAgendaItemstodo_Clc_TimeToGo1: TStringField
       FieldKind = fkCalculated
-      FieldName = 'agit_Clc_TimeToGo'
-      Index = 13
+      FieldName = 'todo_Clc_TimeToGo'
+      Index = 23
       LookupCache = False
       ProviderFlags = []
-      ReadOnly = True
+      ReadOnly = False
       Required = False
-      Size = 35
+      Size = 125
     end
   end
 end

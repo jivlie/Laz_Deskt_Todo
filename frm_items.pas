@@ -16,6 +16,7 @@ type
   TfrmItems = class(TForm)
     btnOpenDoc: TButton;
     btnSelFilePath: TButton;
+		dbChkBxIsAgenda: TDBCheckBox;
 		dbchkbxAfgewerkt: TDBCheckBox;
     dbedtFilePath: TDBEdit;
     dbedtTitle: TDBEdit;
@@ -31,6 +32,7 @@ type
     dsTodos: TDataSource;
 		frDBDsTod: TfrDBDataSet;
 		frRprtTodo: TfrReport;
+		lblIsAgenda: TLabel;
 		lblDatAfgewerkt: TLabel;
 		lblAfgewerkt: TLabel;
 		lblDatStart: TLabel;

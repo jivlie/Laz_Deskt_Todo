@@ -1,7 +1,7 @@
 object frmAgenda: TfrmAgenda
-  Left = 1704
+  Left = 563
   Height = 459
-  Top = 480
+  Top = 247
   Width = 830
   Caption = 'Agenda Items'
   ClientHeight = 459
@@ -38,11 +38,11 @@ object frmAgenda: TfrmAgenda
     OnChange = thePageControlChange
     object tbshtOverz: TTabSheet
       Caption = 'Overview'
-      ClientHeight = 377
+      ClientHeight = 378
       ClientWidth = 827
       object theDbgrd: TDBGrid
         Left = 0
-        Height = 377
+        Height = 378
         Top = 0
         Width = 827
         Align = alClient
@@ -56,17 +56,17 @@ object frmAgenda: TfrmAgenda
           item
             Title.Caption = 'Title'
             Width = 350
-            FieldName = 'agit_Title'
+            FieldName = 'todo_Title'
           end        
           item
             Title.Caption = 'DatPlan'
             Width = 175
-            FieldName = 'agit_DatPlan'
+            FieldName = 'todo_DatPlan'
           end        
           item
             Title.Caption = 'Te gaan'
             Width = 235
-            FieldName = 'agit_Clc_TimeToGo'
+            FieldName = 'todo_Clc_TimeToGo'
           end>
         DataSource = dsItems
         TabOrder = 0
@@ -74,38 +74,38 @@ object frmAgenda: TfrmAgenda
     end
     object tbshtDetails: TTabSheet
       Caption = 'Details'
-      ClientHeight = 377
+      ClientHeight = 378
       ClientWidth = 827
       object Label1: TLabel
         Left = 22
-        Height = 16
+        Height = 15
         Top = 23
-        Width = 36
+        Width = 33
         Caption = 'Title:'
         ParentColor = False
       end
       object Label2: TLabel
         Left = 24
-        Height = 16
+        Height = 15
         Top = 56
-        Width = 65
+        Width = 59
         Caption = 'File path:'
         ParentColor = False
       end
       object lblSubject: TLabel
         Left = 24
-        Height = 16
+        Height = 15
         Top = 88
-        Width = 58
+        Width = 52
         Caption = 'Subject:'
         ParentColor = False
       end
       object dbedtTitle: TDBEdit
         Left = 104
-        Height = 26
+        Height = 25
         Top = 16
         Width = 376
-        DataField = 'agit_Title'
+        DataField = 'todo_Title'
         DataSource = dsItems
         Anchors = [akTop, akLeft, akRight]
         CharCase = ecNormal
@@ -114,10 +114,10 @@ object frmAgenda: TfrmAgenda
       end
       object dbedtFilePath: TDBEdit
         Left = 104
-        Height = 26
+        Height = 25
         Top = 48
         Width = 384
-        DataField = 'agit_LastSerial'
+        DataField = 'todo_LastSerial'
         DataSource = dsItems
         Anchors = [akTop, akLeft, akRight]
         CharCase = ecNormal
@@ -136,10 +136,10 @@ object frmAgenda: TfrmAgenda
       end
       object dbLkupCmbxSujects: TDBLookupComboBox
         Left = 104
-        Height = 26
+        Height = 25
         Top = 80
         Width = 256
-        DataField = 'agit_Fk_Subj'
+        DataField = 'todo_Fk_Subj'
         DataSource = dsItems
         KeyField = '_id'
         ListField = 'subj_Title'
@@ -150,10 +150,10 @@ object frmAgenda: TfrmAgenda
       end
       object DBSqliteDTPicker1: TDBSqliteDTPicker
         Left = 108
-        Height = 24
+        Height = 23
         Top = 120
-        Width = 189
-        DataField = 'agit_DatPlan'
+        Width = 171
+        DataField = 'todo_DatPlan'
         DataSource = dsItems
         ReadOnly = False
         CenturyFrom = 1941
@@ -174,24 +174,24 @@ object frmAgenda: TfrmAgenda
       end
       object lblGeplanned: TLabel
         Left = 18
-        Height = 16
+        Height = 15
         Top = 128
-        Width = 83
+        Width = 74
         Caption = 'Geplanned:'
         ParentColor = False
       end
     end
     object tbshtNotes: TTabSheet
       Caption = 'Notes'
-      ClientHeight = 377
+      ClientHeight = 378
       ClientWidth = 827
       object dbmmDocNotes: TDBMemo
-        Left = 2
-        Height = 353
-        Top = 3
-        Width = 737
+        Left = 4
+        Height = 374
+        Top = 4
+        Width = 820
         Anchors = [akTop, akLeft, akRight, akBottom]
-        DataField = 'agit_Notes'
+        DataField = 'todo_Notes'
         DataSource = dsItems
         ScrollBars = ssAutoVertical
         TabOrder = 0
@@ -211,7 +211,7 @@ object frmAgenda: TfrmAgenda
   end
   object dbCmbBxSubjects: TDBLookupComboBox
     Left = 456
-    Height = 26
+    Height = 25
     Top = 0
     Width = 184
     Enabled = False
@@ -255,7 +255,7 @@ object frmAgenda: TfrmAgenda
       Width = 200
       AutoSize = False
       Color = clNavy
-      DataField = 'agit_Title'
+      DataField = 'todo_Title'
       DataSource = dsItems
       Font.Color = clWhite
       Font.Style = [fsBold]
@@ -291,7 +291,7 @@ object frmAgenda: TfrmAgenda
   object dsItems: TDataSource
     DataSet = DatModMain.SQLQryAgendaItems
     OnDataChange = dsItemsDataChange
-    left = 469
+    left = 468
     top = 295
   end
   object opnDlgDocFilePath: TOpenDialog

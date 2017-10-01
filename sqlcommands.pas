@@ -93,6 +93,69 @@ const
     'Order by ' + #13 +
        'todo_VolgNr, todo_Title '  + #13 + #10;
 
+  cns_Sql_AllAgendaItems =
+     'Select ' +
+  '_id    , ' + #10 +
+  'todo_Fk_Subj    , ' + #10 +
+  'todo_Ctrl    , ' + #10 +
+  'cast(todo_Title as varchar(254)) as todo_Title   , ' + #10 +
+  'todo_Notes    , ' + #10 +
+  'todo_KeyWords    , ' + #10 +
+  'cast(todo_DocFile as varchar(254)) as todo_DocFile   , '  + #10 +
+  'todo_DatGen        , '  + #10 +
+  'todo_DatAlt          , '  + #10 +
+  'todo_YNPrint         , '  + #10 +
+  'todo_YNShow       , '  + #10 +
+  'todo_VolgNr       , '  + #10 +
+  'todo_Lu_Status, '  + #10 +
+  'todo_Lu_Priority, '  + #10 +
+  'todo_HasDeadLine, '  + #10 +
+  'cast(todo_DatDeadLine as varchar(20)) as todo_DatDeadLine, '  + #10 +
+  'cast(todo_DatAfgewerkt as varchar(20)) as todo_DatAfgewerkt, '  + #10 +
+  'cast(todo_DatStart as varchar(20)) as todo_DatStart, '  + #10 +
+  'cast(todo_DatPlan as varchar(20)) as todo_DatPlan, '  + #10 +
+  'todo_IsAgenda, '  + #10 +
+  'todo_Importance, '  + #10 +
+  'todo_IsAfgewerkt, '  + #10 +
+  'todo_LastSerial ' +
+ 'From ' +
+  'Todos ' +
+'Where ' +
+  '(todo_IsAgenda = 1) ' +
+ 'Order by ' +
+  'todo_VolgNr, todo_Title '  + #10;
+
+  cns_Sql_AgendaItemsBySubj =
+     'Select ' +
+  '_id    , ' + #10 +
+  'todo_Fk_Subj    , ' + #10 +
+  'todo_Ctrl    , ' + #10 +
+  'cast(todo_Title as varchar(254)) as todo_Title   , ' + #10 +
+  'todo_Notes    , ' + #10 +
+  'todo_KeyWords    , ' + #10 +
+  'cast(todo_DocFile as varchar(254)) as todo_DocFile   , '  + #10 +
+  'todo_DatGen        , '  + #10 +
+  'todo_DatAlt          , '  + #10 +
+  'todo_YNPrint         , '  + #10 +
+  'todo_YNShow       , '  + #10 +
+  'todo_VolgNr       , '  + #10 +
+  'todo_Lu_Status, '  + #10 +
+  'todo_Lu_Priority, '  + #10 +
+  'todo_HasDeadLine, '  + #10 +
+  'cast(todo_DatDeadLine as varchar(20)) as todo_DatDeadLine, '  + #10 +
+  'cast(todo_DatAfgewerkt as varchar(20)) as todo_DatAfgewerkt, '  + #10 +
+  'cast(todo_DatStart as varchar(20)) as todo_DatStart, '  + #10 +
+  'cast(todo_DatPlan as varchar(20)) as todo_DatPlan, '  + #10 +
+  'todo_IsAgenda, '  + #10 +
+  'todo_Importance, '  + #10 +
+  'todo_IsAfgewerkt, '  + #10 +
+  'todo_LastSerial ' +
+ 'From ' +
+  'Todos ' +
+'Where ' +
+  '((todo_IsAgenda = 1) and (todo_Fk_Subj = :SubjId)) ' +
+  'Order by ' +
+  'todo_VolgNr, todo_Title '  + #10;
 
 
 implementation

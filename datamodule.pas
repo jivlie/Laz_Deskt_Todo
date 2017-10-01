@@ -19,19 +19,29 @@ type
     dsList_Subjects: TDataSource;
     ImageListMain: TImageList;
     SQLite3Con: TSQLite3Connection;
-		SQLQryAgendaItemsagit_Clc_TimeToGo1: TStringField;
-		SQLQryAgendaItemsagit_Ctrl: TMemoField;
-		SQLQryAgendaItemsagit_DatDeadLine: TStringField;
-		SQLQryAgendaItemsagit_DatPlan: TStringField;
-		SQLQryAgendaItemsagit_DatReminder: TStringField;
-		SQLQryAgendaItemsagit_Fk_Subj: TLongintField;
-		SQLQryAgendaItemsagit_Importance: TLongintField;
-		SQLQryAgendaItemsagit_LastSerial: TLongintField;
-		SQLQryAgendaItemsagit_Notes: TMemoField;
-		SQLQryAgendaItemsagit_Title: TStringField;
-		SQLQryAgendaItemsagit_VolgNr: TLongintField;
-		SQLQryAgendaItemsagit_YNPrint: TLongintField;
-		SQLQryAgendaItemsagit_YNShow: TLongintField;
+		SQLQryAgendaItemstodo_Clc_TimeToGo1: TStringField;
+		SQLQryAgendaItemstodo_Ctrl: TMemoField;
+		SQLQryAgendaItemstodo_DatAfgewerkt: TStringField;
+		SQLQryAgendaItemstodo_DatAlt: TMemoField;
+		SQLQryAgendaItemstodo_DatDeadLine: TStringField;
+		SQLQryAgendaItemstodo_DatGen: TMemoField;
+		SQLQryAgendaItemstodo_DatPlan: TStringField;
+		SQLQryAgendaItemstodo_DatStart: TStringField;
+		SQLQryAgendaItemstodo_DocFile: TStringField;
+		SQLQryAgendaItemstodo_Fk_Subj: TLongintField;
+		SQLQryAgendaItemstodo_HasDeadLine: TLongintField;
+		SQLQryAgendaItemstodo_Importance: TLongintField;
+		SQLQryAgendaItemstodo_IsAfgewerkt: TLongintField;
+		SQLQryAgendaItemstodo_IsAgenda: TLongintField;
+		SQLQryAgendaItemstodo_KeyWords: TMemoField;
+		SQLQryAgendaItemstodo_LastSerial: TLongintField;
+		SQLQryAgendaItemstodo_Lu_Priority: TLongintField;
+		SQLQryAgendaItemstodo_Lu_Status: TLongintField;
+		SQLQryAgendaItemstodo_Notes: TMemoField;
+		SQLQryAgendaItemstodo_Title: TStringField;
+		SQLQryAgendaItemstodo_VolgNr: TLongintField;
+		SQLQryAgendaItemstodo_YNPrint: TLongintField;
+		SQLQryAgendaItemstodo_YNShow: TLongintField;
 		SQLQryAgendaItems_id: TAutoIncField;
     SQLQryList_Subjects: TSQLQuery;
     SQLQryLookUpItemslupI_Code: TMemoField;
@@ -86,6 +96,7 @@ type
 		SQLQryTodostodo_Fk_Subj: TLongintField;
 		SQLQryTodostodo_HasDeadLine: TLongintField;
 		SQLQryTodostodo_IsAfgewerkt: TLongintField;
+		SQLQryTodostodo_IsAgenda: TLongintField;
 		SQLQryTodostodo_KeyWords: TMemoField;
 		SQLQryTodostodo_LastSerial: TLongintField;
 		SQLQryTodostodo_Lu_Priority: TLongintField;
@@ -104,6 +115,7 @@ type
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
     procedure SQLite3ConBeforeConnect(Sender: TObject);
+		procedure SQLQryAgendaItemsAfterInsert(DataSet: TDataSet);
 		procedure SQLQryAgendaItemsCalcFields(DataSet: TDataSet);
     procedure SQLQryLookUpItemsAfterInsert(DataSet: TDataSet);
     procedure SQLQryLookUpItemsAfterPost(DataSet: TDataSet);
@@ -159,8 +171,8 @@ var
   lAgenda: TDateTime;
 begin
   lNow := Now;
-  lAgenda := stndStringToDateTime(SQLQryAgendaItemsagit_DatPlan.AsString);
-  SQLQryAgendaItemsagit_Clc_TimeToGo1.AsString :=
+  lAgenda := stndStringToDateTime(SQLQryAgendaItemstodo_DatPlan.AsString);
+  SQLQryAgendaItemstodo_Clc_TimeToGo1.AsString :=
     DiffBetweenDateTimes(lNow, lAgenda);
 end;
 
@@ -359,6 +371,7 @@ begin
   SQLQryTodostodo_DatStart.AsString := FormatDateTime(cns_Fmt_DbDateTime, Now);
   SQLQryTodostodo_HasDeadLine.AsLongint := 0;
   SQLQryTodostodo_IsAfgewerkt.AsLongint := 0;
+  SQLQryTodostodo_IsAgenda.AsLongint := 0;
 end;
 
 procedure TDatModMain.SQLQryTodosAfterPost(DataSet: TDataSet);
@@ -396,6 +409,17 @@ procedure TDatModMain.UpdateLookUpLsts;
 begin
   RefrLijsten(SQLQryLst_Priority);
   RefrLijsten(SQLQryLst_Status);
+end;
+
+procedure TDatModMain.SQLQryAgendaItemsAfterInsert(DataSet: TDataSet);
+begin
+  SQLQryAfterInsert(DataSet);
+  SQLQryAgendaItemstodo_IsAgenda.AsLongint := 1;
+  SQLQryAgendaItemstodo_VolgNr.AsLongInt := 0;
+  SQLQryAgendaItemstodo_DatGen.AsString := FormatDateTime(cns_Fmt_DbDateTime, Now);
+  SQLQryAgendaItemstodo_DatStart.AsString := FormatDateTime(cns_Fmt_DbDateTime, Now);
+  SQLQryAgendaItemstodo_HasDeadLine.AsLongint := 0;
+  SQLQryAgendaItemstodo_IsAfgewerkt.AsLongint := 0;
 end;
 
 procedure TDatModMain.SQLQryLookUpsAfterInsert(DataSet: TDataSet);

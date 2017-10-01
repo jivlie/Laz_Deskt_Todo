@@ -3,7 +3,7 @@ object frmItems: TfrmItems
   Height = 439
   Top = 306
   Width = 747
-  Caption = 'Items'
+  Caption = 'Todo''s'
   ClientHeight = 439
   ClientWidth = 747
   OnShow = FormShow
@@ -31,18 +31,18 @@ object frmItems: TfrmItems
     Height = 383
     Top = 56
     Width = 746
-    ActivePage = tbshtOverz
+    ActivePage = tbshtDetails
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     OnChange = thePageControlChange
     object tbshtOverz: TTabSheet
       Caption = 'Overview'
-      ClientHeight = 357
+      ClientHeight = 358
       ClientWidth = 744
       object dbgrdDocuments: TDBGrid
         Left = 0
-        Height = 357
+        Height = 358
         Top = 0
         Width = 744
         Align = alClient
@@ -85,19 +85,19 @@ object frmItems: TfrmItems
     end
     object tbshtDetails: TTabSheet
       Caption = 'Details'
-      ClientHeight = 357
+      ClientHeight = 358
       ClientWidth = 744
       object Label1: TLabel
         Left = 22
-        Height = 17
+        Height = 15
         Top = 23
-        Width = 31
+        Width = 33
         Caption = 'Title:'
         ParentColor = False
       end
       object Label2: TLabel
         Left = 24
-        Height = 17
+        Height = 15
         Top = 56
         Width = 59
         Caption = 'File path:'
@@ -105,15 +105,15 @@ object frmItems: TfrmItems
       end
       object lblSubject: TLabel
         Left = 24
-        Height = 17
+        Height = 15
         Top = 88
-        Width = 54
+        Width = 52
         Caption = 'Subject:'
         ParentColor = False
       end
       object dbedtTitle: TDBEdit
         Left = 133
-        Height = 27
+        Height = 25
         Top = 16
         Width = 376
         DataField = 'todo_Title'
@@ -125,7 +125,7 @@ object frmItems: TfrmItems
       end
       object dbedtFilePath: TDBEdit
         Left = 133
-        Height = 27
+        Height = 25
         Top = 48
         Width = 384
         DataField = 'todo_DocFile'
@@ -147,7 +147,7 @@ object frmItems: TfrmItems
       end
       object dbLkupCmbxSujects: TDBLookupComboBox
         Left = 133
-        Height = 27
+        Height = 25
         Top = 80
         Width = 256
         DataField = 'todo_Fk_Subj'
@@ -161,9 +161,9 @@ object frmItems: TfrmItems
       end
       object lblAfgewerkt: TLabel
         Left = 24
-        Height = 17
+        Height = 15
         Top = 120
-        Width = 70
+        Width = 71
         Caption = 'Afgewerkt:'
         ParentColor = False
       end
@@ -181,16 +181,16 @@ object frmItems: TfrmItems
       end
       object lblDatAfgewerkt: TLabel
         Left = 24
-        Height = 17
+        Height = 15
         Top = 150
-        Width = 94
+        Width = 97
         Caption = 'Dat afgewerkt:'
         ParentColor = False
         Visible = False
       end
       object dbSqltDTPickerAfgewerktdat: TDBSqliteDTPicker
         Left = 133
-        Height = 25
+        Height = 23
         Top = 142
         Width = 171
         DataField = 'todo_DatAfgewerkt'
@@ -215,15 +215,15 @@ object frmItems: TfrmItems
       end
       object lblDatStart: TLabel
         Left = 24
-        Height = 17
+        Height = 15
         Top = 180
-        Width = 79
+        Width = 81
         Caption = 'Start datum:'
         ParentColor = False
       end
       object dbSqltDTPckrStartDatum: TDBSqliteDTPicker
         Left = 133
-        Height = 25
+        Height = 23
         Top = 172
         Width = 171
         DataField = 'todo_DatStart'
@@ -247,7 +247,7 @@ object frmItems: TfrmItems
       end
       object dbSqltDTPckrStartDatum1: TDBSqliteDTPicker
         Left = 133
-        Height = 25
+        Height = 23
         Top = 200
         Width = 171
         DataField = 'todo_DatDeadLine'
@@ -271,16 +271,35 @@ object frmItems: TfrmItems
       end
       object lblDatDeadline: TLabel
         Left = 24
-        Height = 17
+        Height = 15
         Top = 208
-        Width = 60
+        Width = 62
         Caption = 'Deadline:'
+        ParentColor = False
+      end
+      object dbChkBxIsAgenda: TDBCheckBox
+        Left = 133
+        Height = 23
+        Top = 232
+        Width = 90
+        DataField = 'todo_IsAgenda'
+        DataSource = dsTodos
+        TabOrder = 8
+        ValueChecked = '1'
+        ValueUnchecked = '0'
+      end
+      object lblIsAgenda: TLabel
+        Left = 24
+        Height = 15
+        Top = 240
+        Width = 68
+        Caption = 'Is Agenda:'
         ParentColor = False
       end
     end
     object tbshtNotes: TTabSheet
       Caption = 'Notes'
-      ClientHeight = 357
+      ClientHeight = 358
       ClientWidth = 744
       object dbmmDocNotes: TDBMemo
         Left = 7
@@ -296,7 +315,7 @@ object frmItems: TfrmItems
     end
     object tbshtKeyWords: TTabSheet
       Caption = 'Key words'
-      ClientHeight = 357
+      ClientHeight = 358
       ClientWidth = 744
       object dbmmDocKeyWords: TDBMemo
         Left = 8
@@ -324,7 +343,7 @@ object frmItems: TfrmItems
   end
   object dbCmbBxSubjects: TDBLookupComboBox
     Left = 512
-    Height = 26
+    Height = 25
     Top = 26
     Width = 184
     Enabled = False
@@ -404,7 +423,7 @@ object frmItems: TfrmItems
   end
   object vdSrchEdtTitle: TVDSearchEdit
     Left = 513
-    Height = 26
+    Height = 25
     Top = 0
     Width = 184
     Color = clInactiveBorder
