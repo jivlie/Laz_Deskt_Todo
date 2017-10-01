@@ -77,6 +77,7 @@ type
     SQLQryLst_Status: TSQLQuery;
 		SQLQryTodos: TSQLQuery;
 		SQLQryTodostodo_Ctrl: TMemoField;
+		SQLQryTodostodo_DatAfgewerkt: TStringField;
 		SQLQryTodostodo_DatAlt: TMemoField;
 		SQLQryTodostodo_DatDeadLine: TStringField;
 		SQLQryTodostodo_DatGen: TMemoField;

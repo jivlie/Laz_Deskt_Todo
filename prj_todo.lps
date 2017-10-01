@@ -34,11 +34,11 @@
         <ResourceBaseClass Value="DataModule"/>
         <IsVisibleTab Value="True"/>
         <EditorIndex Value="5"/>
-        <TopLine Value="136"/>
-        <CursorPos X="61" Y="143"/>
+        <TopLine Value="137"/>
+        <CursorPos X="61" Y="144"/>
         <UsageCount Value="194"/>
         <Bookmarks Count="1">
-          <Item0 X="51" Y="162" ID="4"/>
+          <Item0 X="51" Y="163" ID="4"/>
         </Bookmarks>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -110,8 +110,8 @@
         <HasResources Value="True"/>
         <ResourceBaseClass Value="Form"/>
         <EditorIndex Value="6"/>
-        <TopLine Value="173"/>
-        <CursorPos X="11" Y="186"/>
+        <TopLine Value="127"/>
+        <CursorPos X="64" Y="143"/>
         <UsageCount Value="194"/>
         <Loaded Value="True"/>
         <LoadedDesigner Value="True"/>
@@ -292,7 +292,7 @@
         </Bookmarks>
       </Unit32>
     </Units>
-    <JumpHistory Count="28" HistoryIndex="27">
+    <JumpHistory Count="30" HistoryIndex="29">
       <Position1>
         <Filename Value="datamodule.pas"/>
         <Caret Line="156" Column="67" TopLine="150"/>
@@ -404,6 +404,14 @@
         <Filename Value="datamodule.pas"/>
         <Caret Line="143" Column="24" TopLine="137"/>
       </Position28>
+      <Position29>
+        <Filename Value="frm_items.pas"/>
+        <Caret Line="186" Column="11" TopLine="173"/>
+      </Position29>
+      <Position30>
+        <Filename Value="datamodule.pas"/>
+        <Caret Line="143" Column="61" TopLine="136"/>
+      </Position30>
     </JumpHistory>
   </ProjectSession>
 </CONFIG>

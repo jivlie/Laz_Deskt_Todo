@@ -7,7 +7,7 @@ object DatModMain: TDatModMain
   VerticalOffset = 172
   Width = 546
   object SQLite3Con: TSQLite3Connection
-    Connected = False
+    Connected = True
     LoginPrompt = False
     BeforeConnect = SQLite3ConBeforeConnect
     DatabaseName = '/home/corbij/Portable/Documenten/DataBases/Sqlite/ToDo/dbTodo.db'
@@ -19,7 +19,7 @@ object DatModMain: TDatModMain
     top = 32
   end
   object SQLTransact: TSQLTransaction
-    Active = False
+    Active = True
     Action = caCommitRetaining
     Database = SQLite3Con
     Options = []
@@ -1215,6 +1215,16 @@ object DatModMain: TDatModMain
       FieldKind = fkData
       FieldName = 'todo_DatStart'
       Index = 20
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQryTodostodo_DatAfgewerkt: TStringField
+      FieldKind = fkData
+      FieldName = 'todo_DatAfgewerkt'
+      Index = 21
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False

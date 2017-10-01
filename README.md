@@ -1,5 +1,5 @@
 # Laz_Deskt_Todo
-Desktop application to manage Todo's with limited agenda functionallity, Sqlite database.
+Desktop application to manage Todo's with limited agenda functionallity, using a Sqlite database.
 
 Database is not included.
 Also package pck_ProfSoft is not included.
