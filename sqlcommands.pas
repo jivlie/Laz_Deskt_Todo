@@ -29,11 +29,14 @@ const
        'cast(todo_DatAfgewerkt as varchar(20)) as todo_DatAfgewerkt, '  + #13 + #10 +
        'cast(todo_DatStart as varchar(20)) as todo_DatStart, '  + #13 + #10 +
        'todo_IsAfgewerkt, '  + #13 + #10 +
+       'cast(todo_EndingFashion as varchar(20)) as todo_EndingFashion, ' + #10 +
+       'cast(todo_Lu_Type as varchar(20)) as todo_Lu_Type, ' +
+       'todo_IsAgenda, ' +
        'todo_LastSerial '   +
     'From ' + #13 +
        'Todos ' +
     'Where ' +
-       '(todo_IsAfgewerkt = 0) ' + #13 + #10 +
+       '  ((todo_IsAfgewerkt = 0) and (todo_Lu_Type = ''Todo'')) ' + #13 + #10 +
     'Order by ' + #13 +
        'todo_VolgNr, todo_Title '  + #13 + #10 ;
 
@@ -58,11 +61,14 @@ const
        'cast(todo_DatAfgewerkt as varchar(20)) as todo_DatAfgewerkt, '  + #13 + #10 +
        'cast(todo_DatStart as varchar(20)) as todo_DatStart, '  + #13 + #10 +
        'todo_IsAfgewerkt, '  + #13 + #10 +
+    'cast(todo_EndingFashion as varchar(20)) as todo_EndingFashion, ' + #10 +
+    'cast(todo_Lu_Type as varchar(20)) as todo_Lu_Type, ' +
+    'todo_IsAgenda, ' +
        'todo_LastSerial ' +
     'From ' + #13 +
        'Todos ' +
     'Where ' +
-       '((todo_Fk_Subj = :SubjectId) and (todo_IsAfgewerkt = 0)) ' + #13 + #10 +
+       '((todo_Fk_Subj = :SubjectId) and (todo_IsAfgewerkt = 0) and (todo_Lu_Type = ''Todo'')) ' + #13 + #10 +
     'Order by ' + #13 +
        'todo_VolgNr, todo_Title '  + #13 + #10 ;
 
@@ -87,9 +93,14 @@ const
        'cast(todo_DatAfgewerkt as varchar(20)) as todo_DatAfgewerkt, '  + #13 + #10 +
        'cast(todo_DatStart as varchar(20)) as todo_DatStart, '  + #13 + #10 +
        'todo_IsAfgewerkt, '  + #13 + #10 +
+    'cast(todo_EndingFashion as varchar(20)) as todo_EndingFashion, ' + #10 +
+    'cast(todo_Lu_Type as varchar(20)) as todo_Lu_Type, ' +
+    'todo_IsAgenda, ' +
        'todo_LastSerial ' +
     'From ' + #13 +
        'Todos ' +
+    'Where ' +
+    'and (todo_Lu_Type = ''Todo'') ' +
     'Order by ' + #13 +
        'todo_VolgNr, todo_Title '  + #13 + #10;
 
@@ -121,7 +132,7 @@ const
  'From ' +
   'Todos ' +
 'Where ' +
-  '(todo_IsAgenda = 1) ' +
+  ' ((todo_IsAgenda = 1) or (todo_Lu_Type = ''Event'') or (todo_Lu_Type = ''Journal'')) ' +
  'Order by ' +
   'todo_VolgNr, todo_Title '  + #10;
 
@@ -153,7 +164,7 @@ const
  'From ' +
   'Todos ' +
 'Where ' +
-  '((todo_IsAgenda = 1) and (todo_Fk_Subj = :SubjId)) ' +
+  '(((todo_IsAgenda = 1) or (todo_Lu_Type = ''Event'') or (todo_Lu_Type = ''Journal'')) and (todo_Fk_Subj = :SubjId)) ' +
   'Order by ' +
   'todo_VolgNr, todo_Title '  + #10;
 

@@ -17,7 +17,9 @@ type
     btnSelFilePath: TButton;
     dbedtFilePath: TDBEdit;
     dbedtTitle: TDBEdit;
+		dbLuCmbxItemtype: TDBLookupComboBox;
 		DBSqliteDTPicker1: TDBSqliteDTPicker;
+		lblItemType: TLabel;
 		lblGeplanned: TLabel;
     theDbgrd: TDBGrid;
     dbLkupCmbxSujects: TDBLookupComboBox;

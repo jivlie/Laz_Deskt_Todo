@@ -31,9 +31,9 @@ object frmAgenda: TfrmAgenda
     Height = 403
     Top = 56
     Width = 829
-    ActivePage = tbshtOverz
+    ActivePage = tbshtDetails
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     OnChange = thePageControlChange
     object tbshtOverz: TTabSheet
@@ -77,7 +77,7 @@ object frmAgenda: TfrmAgenda
       ClientHeight = 378
       ClientWidth = 827
       object Label1: TLabel
-        Left = 22
+        Left = 24
         Height = 15
         Top = 23
         Width = 33
@@ -173,12 +173,34 @@ object frmAgenda: TfrmAgenda
         MonthNames = 'Long'
       end
       object lblGeplanned: TLabel
-        Left = 18
+        Left = 24
         Height = 15
         Top = 128
         Width = 74
         Caption = 'Geplanned:'
         ParentColor = False
+      end
+      object lblItemType: TLabel
+        Left = 24
+        Height = 15
+        Top = 163
+        Width = 67
+        Caption = 'Item type:'
+        ParentColor = False
+      end
+      object dbLuCmbxItemtype: TDBLookupComboBox
+        Left = 108
+        Height = 25
+        Top = 153
+        Width = 204
+        DataField = 'todo_Lu_Type'
+        DataSource = dsItems
+        KeyField = 'lupI_Code'
+        ListField = 'lupI_TextVal'
+        ListFieldIndex = 0
+        ListSource = DatModMain.dsLu_TodoType
+        LookupCache = False
+        TabOrder = 5
       end
     end
     object tbshtNotes: TTabSheet

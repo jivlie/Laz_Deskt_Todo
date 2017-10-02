@@ -31,9 +31,9 @@ object framLkUpItems: TframLkUpItems
     Height = 265
     Top = 32
     Width = 532
-    ActivePage = tbshtOverview
+    ActivePage = tbshtDetails
     Anchors = [akTop, akLeft, akRight, akBottom]
-    TabIndex = 0
+    TabIndex = 1
     TabOrder = 1
     object tbshtOverview: TTabSheet
       Caption = 'Overview'
@@ -73,8 +73,9 @@ object framLkUpItems: TframLkUpItems
         Width = 378
         DataField = 'lupI_TextVal'
         DataSource = dsLkUpItems
+        Anchors = [akTop, akLeft, akRight]
         CharCase = ecNormal
-        MaxLength = 0
+        MaxLength = 255
         TabOrder = 0
       end
       object DBEdit2: TDBEdit
@@ -84,9 +85,8 @@ object framLkUpItems: TframLkUpItems
         Width = 170
         DataField = 'lupI_Code'
         DataSource = dsLkUpItems
-        ReadOnly = True
         CharCase = ecNormal
-        MaxLength = 0
+        MaxLength = 255
         TabOrder = 1
       end
       object DBEdit3: TDBEdit
@@ -126,7 +126,7 @@ object framLkUpItems: TframLkUpItems
       end
     end
     object tbshtNotes: TTabSheet
-      Caption = 'tbshtNotes'
+      Caption = 'Notes'
       ClientHeight = 240
       ClientWidth = 530
       object dbmmItmMemVal: TDBMemo
@@ -134,6 +134,7 @@ object framLkUpItems: TframLkUpItems
         Height = 235
         Top = 5
         Width = 513
+        Anchors = [akTop, akLeft, akRight, akBottom]
         DataField = 'lupI_MemoVal'
         DataSource = dsLkUpItems
         TabOrder = 0

@@ -120,7 +120,7 @@ object frmItems: TfrmItems
         DataSource = dsTodos
         Anchors = [akTop, akLeft, akRight]
         CharCase = ecNormal
-        MaxLength = 0
+        MaxLength = 255
         TabOrder = 0
       end
       object dbedtFilePath: TDBEdit
@@ -132,7 +132,7 @@ object frmItems: TfrmItems
         DataSource = dsTodos
         Anchors = [akTop, akLeft, akRight]
         CharCase = ecNormal
-        MaxLength = 0
+        MaxLength = 255
         TabOrder = 1
       end
       object btnSelFilePath: TButton
@@ -263,7 +263,7 @@ object frmItems: TfrmItems
         Kind = dtkDateTime
         TimeFormat = tf24
         TimeDisplay = tdHMS
-        DateTime = 1.7E308
+        DateTime = 43015
         DateMode = dmComboBox
         UseDefaultSeparators = True
         HideDateTimeParts = [dtpMiliSec]
@@ -295,6 +295,50 @@ object frmItems: TfrmItems
         Width = 68
         Caption = 'Is Agenda:'
         ParentColor = False
+      end
+      object lblAfwerkwijze: TLabel
+        Left = 246
+        Height = 15
+        Top = 118
+        Width = 84
+        Caption = 'Afwerkwijze:'
+        ParentColor = False
+      end
+      object dbLuCmbxEndFashion: TDBLookupComboBox
+        Left = 356
+        Height = 25
+        Top = 110
+        Width = 168
+        DataField = 'todo_EndingFashion'
+        DataSource = dsTodos
+        KeyField = 'lupI_Code'
+        ListField = 'lupI_TextVal'
+        ListFieldIndex = 0
+        ListSource = DatModMain.dsLu_EndFashion
+        LookupCache = False
+        TabOrder = 9
+      end
+      object lblTodoType: TLabel
+        Left = 26
+        Height = 15
+        Top = 274
+        Width = 68
+        Caption = 'Todo Type:'
+        ParentColor = False
+      end
+      object dbLuCmbxTodoType: TDBLookupComboBox
+        Left = 133
+        Height = 25
+        Top = 264
+        Width = 211
+        DataField = 'todo_Lu_Type'
+        DataSource = dsTodos
+        KeyField = 'lupI_Code'
+        ListField = 'lupI_TextVal'
+        ListFieldIndex = 0
+        ListSource = DatModMain.dsLu_TodoType
+        LookupCache = False
+        TabOrder = 10
       end
     end
     object tbshtNotes: TTabSheet

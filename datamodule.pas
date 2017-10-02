@@ -14,11 +14,25 @@ type
   { TDatModMain }
 
   TDatModMain = class(TDataModule)
+				dsLu_TodoType: TDataSource;
+				dsLu_EndFashion: TDataSource;
     dsLst_ItemPriority: TDataSource;
     dsLst_FileStatus: TDataSource;
     dsList_Subjects: TDataSource;
     ImageListMain: TImageList;
     SQLite3Con: TSQLite3Connection;
+		SQLLu_EndingFashionlupI_Code: TStringField;
+		SQLLu_EndingFashionlupI_Fk_LookUpCd: TLongintField;
+		SQLLu_EndingFashionlupI_IntVal: TLongintField;
+		SQLLu_EndingFashionlupI_MemoVal: TMemoField;
+		SQLLu_EndingFashionlupI_TextVal: TStringField;
+		SQLLu_EndingFashion_id: TAutoIncField;
+		SQLLu_TodoTypelupI_Code: TStringField;
+		SQLLu_TodoTypelupI_Fk_LookUpCd: TLongintField;
+		SQLLu_TodoTypelupI_IntVal: TLongintField;
+		SQLLu_TodoTypelupI_MemoVal: TMemoField;
+		SQLLu_TodoTypelupI_TextVal: TStringField;
+		SQLLu_TodoType_id: TAutoIncField;
 		SQLQryAgendaItemstodo_Clc_TimeToGo1: TStringField;
 		SQLQryAgendaItemstodo_Ctrl: TMemoField;
 		SQLQryAgendaItemstodo_DatAfgewerkt: TStringField;
@@ -28,6 +42,7 @@ type
 		SQLQryAgendaItemstodo_DatPlan: TStringField;
 		SQLQryAgendaItemstodo_DatStart: TStringField;
 		SQLQryAgendaItemstodo_DocFile: TStringField;
+		SQLQryAgendaItemstodo_EndingFashion: TStringField;
 		SQLQryAgendaItemstodo_Fk_Subj: TLongintField;
 		SQLQryAgendaItemstodo_HasDeadLine: TLongintField;
 		SQLQryAgendaItemstodo_Importance: TLongintField;
@@ -37,6 +52,7 @@ type
 		SQLQryAgendaItemstodo_LastSerial: TLongintField;
 		SQLQryAgendaItemstodo_Lu_Priority: TLongintField;
 		SQLQryAgendaItemstodo_Lu_Status: TLongintField;
+		SQLQryAgendaItemstodo_Lu_Type: TStringField;
 		SQLQryAgendaItemstodo_Notes: TMemoField;
 		SQLQryAgendaItemstodo_Title: TStringField;
 		SQLQryAgendaItemstodo_VolgNr: TLongintField;
@@ -44,7 +60,7 @@ type
 		SQLQryAgendaItemstodo_YNShow: TLongintField;
 		SQLQryAgendaItems_id: TAutoIncField;
     SQLQryList_Subjects: TSQLQuery;
-    SQLQryLookUpItemslupI_Code: TMemoField;
+		SQLQryLookUpItemslupI_Code: TStringField;
     SQLQryLookUpItemslupI_Fk_LookUpCd: TLongintField;
     SQLQryLookUpItemslupI_IntVal: TLongintField;
     SQLQryLookUpItemslupI_MemoVal: TMemoField;
@@ -93,6 +109,7 @@ type
 		SQLQryTodostodo_DatGen: TMemoField;
 		SQLQryTodostodo_DatStart: TStringField;
 		SQLQryTodostodo_DocFile: TStringField;
+		SQLQryTodostodo_EndingFashion: TStringField;
 		SQLQryTodostodo_Fk_Subj: TLongintField;
 		SQLQryTodostodo_HasDeadLine: TLongintField;
 		SQLQryTodostodo_IsAfgewerkt: TLongintField;
@@ -101,6 +118,7 @@ type
 		SQLQryTodostodo_LastSerial: TLongintField;
 		SQLQryTodostodo_Lu_Priority: TLongintField;
 		SQLQryTodostodo_Lu_Status: TLongintField;
+		SQLQryTodostodo_Lu_Type: TStringField;
 		SQLQryTodostodo_Notes: TMemoField;
 		SQLQryTodostodo_Title: TStringField;
 		SQLQryTodostodo_VolgNr: TLongintField;
@@ -108,6 +126,8 @@ type
 		SQLQryTodostodo_YNShow: TLongintField;
 		SQLQryTodos_id: TAutoIncField;
 		SQLQryAgendaItems: TSQLQuery;
+		SQLLu_EndingFashion: TSQLQuery;
+		SQLLu_TodoType: TSQLQuery;
     SQLTransact: TSQLTransaction;
 		StringField1: TStringField;
 		StringField2: TStringField;
@@ -115,6 +135,7 @@ type
     procedure DataModuleCreate(Sender: TObject);
     procedure DataModuleDestroy(Sender: TObject);
     procedure SQLite3ConBeforeConnect(Sender: TObject);
+		procedure SQLQryAgendaItemsAfterDelete(DataSet: TDataSet);
 		procedure SQLQryAgendaItemsAfterInsert(DataSet: TDataSet);
 		procedure SQLQryAgendaItemsCalcFields(DataSet: TDataSet);
     procedure SQLQryLookUpItemsAfterInsert(DataSet: TDataSet);
@@ -165,6 +186,12 @@ begin
   SQLite3Con.DataBaseName := qPathToDataBase;
 end;
 
+procedure TDatModMain.SQLQryAgendaItemsAfterDelete(DataSet: TDataSet);
+begin
+  SQLQryAfterPost(DataSet);
+  RefrSqlQry(SQLQryTodos);
+end;
+
 procedure TDatModMain.SQLQryAgendaItemsCalcFields(DataSet: TDataSet);
 var
   lNow: TDateTime;
@@ -189,6 +216,8 @@ begin
 
   SQLQryLst_Status.Active := True;
   SQLQryLst_Priority.Active := True;
+  SQLLu_EndingFashion.Active:=True;
+  SQLLu_TodoType.Active:=True;
 
   SQLQryLookUps.Active := True;
   SQLQryLookUpItems.Active := True;
@@ -372,11 +401,13 @@ begin
   SQLQryTodostodo_HasDeadLine.AsLongint := 0;
   SQLQryTodostodo_IsAfgewerkt.AsLongint := 0;
   SQLQryTodostodo_IsAgenda.AsLongint := 0;
+  SQLQryTodostodo_Lu_Type.AsString := cns_Lu_TodoTypeTodo;
 end;
 
 procedure TDatModMain.SQLQryTodosAfterPost(DataSet: TDataSet);
 begin
   UpdateAll(SQLQryTodos);
+  RefrSqlQry(SQLQryAgendaItems);
 end;
 
 procedure TDatModMain.SQLQrySleutelsAfterPost(DataSet: TDataSet);
@@ -420,6 +451,7 @@ begin
   SQLQryAgendaItemstodo_DatStart.AsString := FormatDateTime(cns_Fmt_DbDateTime, Now);
   SQLQryAgendaItemstodo_HasDeadLine.AsLongint := 0;
   SQLQryAgendaItemstodo_IsAfgewerkt.AsLongint := 0;
+  SQLQryAgendaItemstodo_Lu_Type.AsString := cns_Lu_TodoTypeEvent;
 end;
 
 procedure TDatModMain.SQLQryLookUpsAfterInsert(DataSet: TDataSet);

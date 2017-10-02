@@ -23,6 +23,8 @@ type
     dbgrdDocuments: TDBGrid;
     dbLkupCmbxSujects: TDBLookupComboBox;
     dbCmbBxSubjects: TDBLookupComboBox;
+		dbLuCmbxTodoType: TDBLookupComboBox;
+		dbLuCmbxEndFashion: TDBLookupComboBox;
     dbmmDocNotes: TDBMemo;
     dbmmDocKeyWords: TDBMemo;
 		dbSqltDTPckrStartDatum1: TDBSqliteDTPicker;
@@ -32,6 +34,8 @@ type
     dsTodos: TDataSource;
 		frDBDsTod: TfrDBDataSet;
 		frRprtTodo: TfrReport;
+		lblTodoType: TLabel;
+		lblAfwerkwijze: TLabel;
 		lblIsAgenda: TLabel;
 		lblDatAfgewerkt: TLabel;
 		lblAfgewerkt: TLabel;

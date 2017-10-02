@@ -3,8 +3,8 @@ object DatModMain: TDatModMain
   OnDestroy = DataModuleDestroy
   OldCreateOrder = False
   Height = 617
-  HorizontalOffset = 142
-  VerticalOffset = 193
+  HorizontalOffset = 261
+  VerticalOffset = 234
   Width = 546
   object SQLite3Con: TSQLite3Connection
     Connected = False
@@ -15,7 +15,7 @@ object DatModMain: TDatModMain
     Transaction = SQLTransact
     LogEvents = []
     Options = []
-    left = 90
+    left = 92
     top = 32
   end
   object SQLTransact: TSQLTransaction
@@ -313,7 +313,6 @@ object DatModMain: TDatModMain
     top = 403
   end
   object SQLQryLst_Status: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = '_id'
@@ -370,8 +369,8 @@ object DatModMain: TDatModMain
     )
     Options = []
     Params = <>
-    left = 88
-    top = 239
+    left = 90
+    top = 248
     object SQLQryLst_Status_id: TLongintField
       FieldKind = fkData
       FieldName = '_id'
@@ -442,7 +441,6 @@ object DatModMain: TDatModMain
     end
   end
   object SQLQryLst_Priority: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = '_id'
@@ -678,8 +676,9 @@ object DatModMain: TDatModMain
       end    
       item
         Name = 'lupI_Code'
-        DataType = ftMemo
+        DataType = ftString
         Precision = -1
+        Size = 255
       end    
       item
         Name = 'lupI_TextVal'
@@ -705,7 +704,7 @@ object DatModMain: TDatModMain
       'Select'
       '  _id,'
       '  lupI_Fk_LookUpCd,'
-      '  lupI_Code,'
+      '  cast(lupI_Code as varchar(50)) as lupI_Code,'
       '  cast(lupI_TextVal as varchar(50)) as lupI_TextVal,'
       '  lupI_MemoVal,'
       '  lupI_IntVal'
@@ -741,21 +740,10 @@ object DatModMain: TDatModMain
       ReadOnly = False
       Required = False
     end
-    object SQLQryLookUpItemslupI_Code: TMemoField
-      FieldKind = fkData
-      FieldName = 'lupI_Code'
-      Index = 2
-      LookupCache = False
-      ProviderFlags = [pfInUpdate, pfInWhere]
-      ReadOnly = False
-      Required = False
-      BlobType = ftMemo
-      Transliterate = False
-    end
     object SQLQryLookUpItemslupI_TextVal: TStringField
       FieldKind = fkData
       FieldName = 'lupI_TextVal'
-      Index = 3
+      Index = 2
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -765,7 +753,7 @@ object DatModMain: TDatModMain
     object SQLQryLookUpItemslupI_MemoVal: TMemoField
       FieldKind = fkData
       FieldName = 'lupI_MemoVal'
-      Index = 4
+      Index = 3
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
@@ -776,15 +764,24 @@ object DatModMain: TDatModMain
     object SQLQryLookUpItemslupI_IntVal: TLongintField
       FieldKind = fkData
       FieldName = 'lupI_IntVal'
-      Index = 5
+      Index = 4
       LookupCache = False
       ProviderFlags = [pfInUpdate, pfInWhere]
       ReadOnly = False
       Required = False
     end
+    object SQLQryLookUpItemslupI_Code: TStringField
+      FieldKind = fkData
+      FieldName = 'lupI_Code'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
   end
   object SQLQryTodos: TSQLQuery
-    IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = '_id'
@@ -887,6 +884,18 @@ object DatModMain: TDatModMain
         Size = 255
       end    
       item
+        Name = 'todo_EndingFashion'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'todo_Lu_Type'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
         Name = 'todo_IsAgenda'
         DataType = ftInteger
         Precision = -1
@@ -896,6 +905,7 @@ object DatModMain: TDatModMain
         DataType = ftInteger
         Precision = -1
       end>
+    AfterDelete = SQLQryAfterPost
     AfterInsert = SQLQryTodosAfterInsert
     AfterPost = SQLQryTodosAfterPost
     Database = SQLite3Con
@@ -921,12 +931,15 @@ object DatModMain: TDatModMain
       '    cast(todo_DatAfgewerkt as varchar(20)) as todo_DatAfgewerkt,'
       '    todo_IsAfgewerkt,'
       '    cast(todo_DatStart as varchar(20)) as todo_DatStart,'
+      '    cast(todo_EndingFashion as varchar(20)) as todo_EndingFashion,'
+      '    cast(todo_Lu_Type as varchar(20)) as todo_Lu_Type,'
       '    todo_IsAgenda,'
+      '    todo_Importance,'
       '  todo_LastSerial'
       'From'
       ' Todos'
       'Where'
-      '  (todo_IsAfgewerkt = 0)'
+      '  ((todo_IsAfgewerkt = 0) and (todo_Lu_Type = ''Todo''))'
       'Order by'
       'todo_VolgNr, todo_Title'
       ''
@@ -953,6 +966,10 @@ object DatModMain: TDatModMain
       '    todo_IsAfgewerkt,'
       '    todo_DatAfgewerkt,'
       '    todo_DatStart,'
+      '    todo_IsAgenda,'
+      '    todo_EndingFashion,'
+      '    todo_Lu_Type,'
+      '    todo_Importance,'
       '    todo_LastSerial'
       ')'
       'Values'
@@ -975,6 +992,10 @@ object DatModMain: TDatModMain
       '    :todo_IsAfgewerkt,'
       '    :todo_DatAfgewerkt,'
       '    :todo_DatStart,'
+      '    :todo_IsAgenda,'
+      '    :todo_EndingFashion,'
+      '    :todo_Lu_Type,'
+      '    :todo_Importance,'
       '    :todo_LastSerial'
       ')'
       ''
@@ -1002,8 +1023,10 @@ object DatModMain: TDatModMain
       '    todo_IsAfgewerkt = :todo_IsAfgewerkt,'
       '    todo_DatStart = :todo_DatStart,'
       '    todo_IsAgenda = :todo_IsAgenda,'
-      '        todo_LastSerial = :todo_LastSerial'
-      ''
+      '    todo_EndingFashion = :todo_EndingFashion,'
+      '    todo_Lu_Type = :todo_Lu_Type,'
+      '    todo_Importance = :todo_Importance,'
+      '    todo_LastSerial = :todo_LastSerial'
       'Where'
       '  (_id = :_id)'
     )
@@ -1015,7 +1038,7 @@ object DatModMain: TDatModMain
     )
     Options = []
     Params = <>
-    left = 90
+    left = 92
     top = 488
     object SQLQryTodos_id: TAutoIncField
       FieldKind = fkData
@@ -1251,13 +1274,33 @@ object DatModMain: TDatModMain
       ReadOnly = False
       Required = False
     end
+    object SQLQryTodostodo_EndingFashion: TStringField
+      FieldKind = fkData
+      FieldName = 'todo_EndingFashion'
+      Index = 23
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQryTodostodo_Lu_Type: TStringField
+      FieldKind = fkData
+      FieldName = 'todo_Lu_Type'
+      Index = 24
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
   end
   object SQLQryAgendaItems: TSQLQuery
     IndexName = 'DEFAULT_ORDER'
     FieldDefs = <    
       item
         Name = '_id'
-        DataType = ftAutoInc
+        DataType = ftInteger
         Precision = -1
       end    
       item
@@ -1345,13 +1388,24 @@ object DatModMain: TDatModMain
         Size = 255
       end    
       item
+        Name = 'todo_IsAfgewerkt'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
         Name = 'todo_DatStart'
         DataType = ftString
         Precision = -1
         Size = 255
       end    
       item
-        Name = 'todo_DatPlan'
+        Name = 'todo_EndingFashion'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'todo_Lu_Type'
         DataType = ftString
         Precision = -1
         Size = 255
@@ -1362,21 +1416,11 @@ object DatModMain: TDatModMain
         Precision = -1
       end    
       item
-        Name = 'todo_Importance'
-        DataType = ftInteger
-        Precision = -1
-      end    
-      item
-        Name = 'todo_IsAfgewerkt'
-        DataType = ftInteger
-        Precision = -1
-      end    
-      item
         Name = 'todo_LastSerial'
         DataType = ftInteger
         Precision = -1
       end>
-    AfterDelete = SQLQryAfterPost
+    AfterDelete = SQLQryAgendaItemsAfterDelete
     AfterInsert = SQLQryAgendaItemsAfterInsert
     AfterPost = SQLQryAfterPost
     OnCalcFields = SQLQryAgendaItemsCalcFields
@@ -1401,19 +1445,116 @@ object DatModMain: TDatModMain
       '    todo_HasDeadLine,'
       '    cast(todo_DatDeadLine as varchar(20)) as todo_DatDeadLine,'
       '    cast(todo_DatAfgewerkt as varchar(20)) as todo_DatAfgewerkt,'
+      '    todo_IsAfgewerkt,'
       '    cast(todo_DatStart as varchar(20)) as todo_DatStart,'
       '    cast(todo_DatPlan as varchar(20)) as todo_DatPlan,'
+      '    cast(todo_EndingFashion as varchar(20)) as todo_EndingFashion,'
+      '    cast(todo_Lu_Type as varchar(20)) as todo_Lu_Type,'
       '    todo_IsAgenda,'
       '    todo_Importance,'
-      '    todo_IsAfgewerkt,'
-      '  todo_LastSerial'
+      '    todo_LastSerial'
       'From'
       ' Todos'
       'Where'
-      ' (todo_IsAgenda = 1)'
+      ' ((todo_IsAgenda = 1) or (todo_Lu_Type = ''Event'') or (todo_Lu_Type = ''Journal''))'
       'Order by'
-      'todo_VolgNr, todo_Title'
+      ' todo_DatPlan'
       ''
+    )
+    InsertSQL.Strings = (
+      'Insert into'
+      '  Todos'
+      '('
+      '    todo_Fk_Subj  ,'
+      '    todo_Ctrl ,'
+      '    todo_Title   ,'
+      '    todo_Notes   ,'
+      '    todo_KeyWords   ,'
+      '    todo_DocFile    ,'
+      '    todo_DatGen       ,'
+      '    todo_DatAlt        ,'
+      '    todo_YNPrint       ,'
+      '    todo_YNShow     ,'
+      '    todo_VolgNr     ,'
+      '    todo_Lu_Status ,'
+      '    todo_Lu_Priority ,'
+      '    todo_HasDeadLine ,'
+      '    todo_DatDeadLine ,'
+      '    todo_IsAfgewerkt,'
+      '    todo_DatAfgewerkt,'
+      '    todo_DatStart,'
+      '    todo_IsAgenda,'
+      '    todo_EndingFashion,'
+      '    todo_Lu_Type,'
+      '    todo_Importance,'
+      '    todo_DatPlan,'
+      '    todo_LastSerial'
+      ')'
+      'Values'
+      '('
+      '    :todo_Fk_Subj    ,'
+      '    :todo_Ctrl   ,'
+      '    :todo_Title   ,'
+      '    :todo_Notes   ,'
+      '    :todo_KeyWords   ,'
+      '    :todo_DocFile   ,'
+      '    :todo_DatGen       ,'
+      '    :todo_DatAlt         ,'
+      '    :todo_YNPrint        ,'
+      '    :todo_YNShow      ,'
+      '    :todo_VolgNr      ,'
+      '    :todo_Lu_Status,'
+      '    :todo_Lu_Priority,'
+      '    :todo_HasDeadLine,'
+      '    :todo_DatDeadLine,'
+      '    :todo_IsAfgewerkt,'
+      '    :todo_DatAfgewerkt,'
+      '    :todo_DatStart,'
+      '    :todo_IsAgenda,'
+      '    :todo_EndingFashion,'
+      '    :todo_Lu_Type,'
+      '    :todo_Importance,'
+      '    :todo_DatPlan,'
+      '    :todo_LastSerial'
+      ')'
+      ''
+    )
+    UpdateSQL.Strings = (
+      'Update'
+      '  Todos'
+      'Set'
+      '    todo_Fk_Subj = :todo_Fk_Subj    ,'
+      '    todo_Ctrl = :todo_Ctrl   ,'
+      '    todo_Title = :todo_Title   ,'
+      '    todo_Notes = :todo_Notes   ,'
+      '    todo_KeyWords = :todo_KeyWords   ,'
+      '    todo_DocFile = :todo_DocFile   ,'
+      '    todo_DatGen = :todo_DatGen       ,'
+      '    todo_DatAlt = :todo_DatAlt         ,'
+      '    todo_YNPrint = :todo_YNPrint        ,'
+      '    todo_YNShow = :todo_YNShow      ,'
+      '    todo_VolgNr = :todo_VolgNr      ,'
+      '    todo_Lu_Status = :todo_Lu_Status,'
+      '    todo_Lu_Priority = :todo_Lu_Priority,'
+      '    todo_HasDeadLine = :todo_HasDeadLine,'
+      '    todo_DatDeadLine = :todo_DatDeadLine,'
+      '    todo_DatAfgewerkt = :todo_DatAfgewerkt,'
+      '    todo_IsAfgewerkt = :todo_IsAfgewerkt,'
+      '    todo_DatStart = :todo_DatStart,'
+      '    todo_IsAgenda = :todo_IsAgenda,'
+      '    todo_EndingFashion = :todo_EndingFashion,'
+      '    todo_Lu_Type = :todo_Lu_Type,'
+      '    todo_Importance = :todo_Importance,'
+      '    todo_DatPlan = :todo_DatPlan,'
+      '    todo_LastSerial = :todo_LastSerial'
+      'Where'
+      '  (_id = :_id)'
+    )
+    DeleteSQL.Strings = (
+      'Delete from'
+      '  Todos'
+      'where'
+      '  _id = :_id'
     )
     Options = []
     Params = <>
@@ -1652,5 +1793,266 @@ object DatModMain: TDatModMain
       Required = False
       Size = 125
     end
+    object SQLQryAgendaItemstodo_EndingFashion: TStringField
+      FieldKind = fkData
+      FieldName = 'todo_EndingFashion'
+      Index = 24
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLQryAgendaItemstodo_Lu_Type: TStringField
+      FieldKind = fkData
+      FieldName = 'todo_Lu_Type'
+      Index = 25
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object SQLLu_EndingFashion: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = '_id'
+        DataType = ftAutoInc
+        Precision = -1
+      end    
+      item
+        Name = 'todo_Lu_Status'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'lupI_Fk_LookUpCd'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'lupI_Code'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'lupI_TextVal'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'lupI_MemoVal'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'lupI_IntVal'
+        DataType = ftInteger
+        Precision = -1
+      end>
+    Database = SQLite3Con
+    Transaction = SQLTransact
+    ReadOnly = True
+    SQL.Strings = (
+      'Select'
+      '  _id,'
+      '  lupI_Fk_LookUpCd,'
+      '  cast(lupI_Code as varchar(50)) as lupI_Code,'
+      '  cast(lupI_TextVal as varchar(50)) as lupI_TextVal,'
+      '  lupI_MemoVal,'
+      '  lupI_IntVal'
+      'From'
+      '  LookUpItems'
+      'Where'
+      '  lupI_Fk_LookUpCd = 30'
+    )
+    Options = []
+    Params = <>
+    left = 352
+    top = 248
+    object SQLLu_EndingFashion_id: TAutoIncField
+      FieldKind = fkData
+      FieldName = '_id'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLLu_EndingFashionlupI_Fk_LookUpCd: TLongintField
+      FieldKind = fkData
+      FieldName = 'lupI_Fk_LookUpCd'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLLu_EndingFashionlupI_TextVal: TStringField
+      FieldKind = fkData
+      FieldName = 'lupI_TextVal'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLLu_EndingFashionlupI_MemoVal: TMemoField
+      FieldKind = fkData
+      FieldName = 'lupI_MemoVal'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object SQLLu_EndingFashionlupI_IntVal: TLongintField
+      FieldKind = fkData
+      FieldName = 'lupI_IntVal'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLLu_EndingFashionlupI_Code: TStringField
+      FieldKind = fkData
+      FieldName = 'lupI_Code'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+  end
+  object dsLu_EndFashion: TDataSource
+    DataSet = SQLLu_EndingFashion
+    left = 436
+    top = 260
+  end
+  object SQLLu_TodoType: TSQLQuery
+    FieldDefs = <    
+      item
+        Name = '_id'
+        DataType = ftAutoInc
+        Precision = -1
+      end    
+      item
+        Name = 'lupI_Fk_LookUpCd'
+        DataType = ftInteger
+        Precision = -1
+      end    
+      item
+        Name = 'lupI_Code'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'lupI_TextVal'
+        DataType = ftString
+        Precision = -1
+        Size = 255
+      end    
+      item
+        Name = 'lupI_MemoVal'
+        DataType = ftMemo
+        Precision = -1
+      end    
+      item
+        Name = 'lupI_IntVal'
+        DataType = ftInteger
+        Precision = -1
+      end>
+    Database = SQLite3Con
+    Transaction = SQLTransact
+    ReadOnly = True
+    SQL.Strings = (
+      'Select'
+      '  _id,'
+      '  lupI_Fk_LookUpCd,'
+      '  cast(lupI_Code as varchar(50)) as lupI_Code,'
+      '  cast(lupI_TextVal as varchar(50)) as lupI_TextVal,'
+      '  lupI_MemoVal,'
+      '  lupI_IntVal'
+      'From'
+      '  LookUpItems'
+      'Where'
+      '  lupI_Fk_LookUpCd = 40'
+    )
+    Options = []
+    Params = <>
+    left = 347
+    top = 330
+    object SQLLu_TodoType_id: TAutoIncField
+      FieldKind = fkData
+      FieldName = '_id'
+      Index = 0
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLLu_TodoTypelupI_Fk_LookUpCd: TLongintField
+      FieldKind = fkData
+      FieldName = 'lupI_Fk_LookUpCd'
+      Index = 1
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+    object SQLLu_TodoTypelupI_Code: TStringField
+      FieldKind = fkData
+      FieldName = 'lupI_Code'
+      Index = 2
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLLu_TodoTypelupI_TextVal: TStringField
+      FieldKind = fkData
+      FieldName = 'lupI_TextVal'
+      Index = 3
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      Size = 255
+    end
+    object SQLLu_TodoTypelupI_MemoVal: TMemoField
+      FieldKind = fkData
+      FieldName = 'lupI_MemoVal'
+      Index = 4
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+      BlobType = ftMemo
+      Transliterate = False
+    end
+    object SQLLu_TodoTypelupI_IntVal: TLongintField
+      FieldKind = fkData
+      FieldName = 'lupI_IntVal'
+      Index = 5
+      LookupCache = False
+      ProviderFlags = [pfInUpdate, pfInWhere]
+      ReadOnly = False
+      Required = False
+    end
+  end
+  object dsLu_TodoType: TDataSource
+    DataSet = SQLLu_TodoType
+    left = 439
+    top = 411
   end
 end

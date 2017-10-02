@@ -40,6 +40,10 @@ const
   cns_Ini_DataBasePath = 'DataBasePath';
   cns_Ini_PathToAppData = 'PathToAppData';
 
+  cns_Lu_TodoTypeTodo = 'Todo';
+  cns_Lu_TodoTypeEvent = 'Event';
+  cns_Lu_TodoTypeJournal = 'Journal';
+
   cns_Fmt_DbDateTime = 'YYYY-MM-DD hh:nn:ss';
 
 
